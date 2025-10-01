@@ -1,0 +1,36 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="550"
+        x:Class="ShopOnline.LoginWindow"
+        Title="LoginWindow"
+	MinWidth="600" MinHeight="550" MaxWidth="600" MaxHeight="550">
+
+	<Grid Background="Black"   ColumnDefinitions="Auto, Auto" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto">
+		<StackPanel Background="Wheat" Margin="20" Width="550" Height="500" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" >
+			<StackPanel Grid.Column="0" Margin="20">
+				
+				<TextBlock Text="ФИО:" Grid.Column="0" Grid.Row="0"/>
+				<TextBox Grid.Row="1" HorizontalAlignment="Left" Width="200" Height="30" x:Name="FullNameText" Text="{Binding User.FullName}"/>
+
+				<TextBlock Text="Номер телефона:" Grid.Column="0" Grid.Row="2"/>
+				<TextBox Width="200" Height="30" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="3" x:Name="PhoneNumberText" Text="{Binding User.PhoneNumber}"/>
+
+				<TextBlock Text="О себе:" Grid.Column="0" Grid.Row="4"/>
+				<TextBox Width="200"  HorizontalAlignment="Left" Height="30" Grid.Column="0" Grid.Row="5" x:Name="DescriptionText" Text="{Binding User.Description}"/>
+			</StackPanel>
+
+			<StackPanel  Grid.Column="1" Margin="20">
+				<TextBlock Text="Логин:" Grid.Column="1" Grid.Row="5"/>
+				<TextBox Width="200" HorizontalAlignment="Left" Height="30" Grid.Column="1" Grid.Row="5" x:Name="LoginText" Text="{Binding Login1}"></TextBox>
+
+				<TextBlock Text="Пароль:" Grid.Column="1" Grid.Row="6"/>
+				<TextBox Grid.Row="6" HorizontalAlignment="Left" Width="200" x:Name="PasswordText" Text="{Binding Password}"/>
+
+			
+				<Button Grid.Row="6" Margin="20" HorizontalAlignment="Right">Сохранить</Button>
+			</StackPanel>
+		</StackPanel>
+	</Grid>
+</Window>
