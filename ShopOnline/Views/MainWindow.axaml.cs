@@ -9,7 +9,6 @@ namespace ShopOnline.Views
 {
     public partial class MainWindow : Window
     {
-
         public MainWindow()
         {
             InitializeComponent();
@@ -35,6 +34,7 @@ namespace ShopOnline.Views
                 ErrorTextBlock.Text = "Логин и пароль не могут быть пустыми";
                 return;
             }
+
             // Поиск пользователя по логину
             var userLogin = await App.DbContext.Logins
                  .Include(x => x.User)
@@ -47,8 +47,11 @@ namespace ShopOnline.Views
                 return;
             }
 
+            // Хэшируем введенный пароль для сравнения
+            string hashedPassword = HashPassword(password);
+
             // Проверка пароля
-            if (userLogin.Password?.Trim() != password)
+            if (userLogin.Password?.Trim() != hashedPassword)
             {
                 ErrorTextBlock.Text = "Неверный пароль";
                 return;
@@ -73,8 +76,14 @@ namespace ShopOnline.Views
 
             nextWindow.Show();
             this.Close();
+        }
 
-
+        // Добавляем метод хэширования пароля (такой же как в LoginWindow)
+        private string HashPassword(string password)
+        {
+            using var sha256 = System.Security.Cryptography.SHA256.Create();
+            var bytes = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            return Convert.ToBase64String(bytes);
         }
     }
 }

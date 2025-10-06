@@ -29,7 +29,7 @@
 				<TextBox Grid.Row="6" HorizontalAlignment="Left" Width="200" x:Name="PasswordText" Text="{Binding Password}"/>
 
 			
-				<Button Grid.Row="6" Margin="20" HorizontalAlignment="Right">Сохранить</Button>
+				<Button Grid.Row="6" Margin="20" Click="Button_Click" HorizontalAlignment="Right">Сохранить</Button>
 			</StackPanel>
 		</StackPanel>
 	</Grid>
