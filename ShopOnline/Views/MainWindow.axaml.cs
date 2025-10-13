@@ -48,10 +48,10 @@ namespace ShopOnline.Views
             }
 
             // Хэшируем введенный пароль для сравнения
-            string hashedPassword = HashPassword(password);
+            string Password = password;
 
             // Проверка пароля
-            if (userLogin.Password?.Trim() != hashedPassword)
+            if (userLogin.Password?.Trim() != Password)
             {
                 ErrorTextBlock.Text = "Неверный пароль";
                 return;
@@ -78,12 +78,5 @@ namespace ShopOnline.Views
             this.Close();
         }
 
-        // Добавляем метод хэширования пароля (такой же как в LoginWindow)
-        private string HashPassword(string password)
-        {
-            using var sha256 = System.Security.Cryptography.SHA256.Create();
-            var bytes = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            return Convert.ToBase64String(bytes);
-        }
     }
 }

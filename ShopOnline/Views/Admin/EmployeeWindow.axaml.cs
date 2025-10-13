@@ -23,6 +23,7 @@ public partial class EmployeeWindow : Window
         if (ContextData.selectedLogin1InMainWindow == null) return;
         DataContext = ContextData.selectedLogin1InMainWindow;
 
+
     }
 
     private void SaveButton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
@@ -33,7 +34,7 @@ public partial class EmployeeWindow : Window
         if (string.IsNullOrEmpty(DescriptionText.Text)) return;
         if (string.IsNullOrEmpty(LoginText.Text)) return;
         if (string.IsNullOrEmpty(PasswordText.Text)) return;
-
+        if(string.IsNullOrEmpty(EmailText.Text)) return;
 
         if (ContextData.selectedLogin1InMainWindow != null)
         {
@@ -41,6 +42,7 @@ public partial class EmployeeWindow : Window
 
             var thisLogin = App.DbContext.Logins.FirstOrDefault(x => x.IdLogins == ContextData.selectedLogin1InMainWindow.IdLogins);
             var thisUser = App.DbContext.Logins.FirstOrDefault(x => x.UserId == ContextData.selectedLogin1InMainWindow.IdLogins);
+            
             if (thisLogin == null) return;
 
             var thisContextLogin = DataContext as Login;

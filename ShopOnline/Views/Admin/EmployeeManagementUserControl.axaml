@@ -1,26 +1,34 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="ShopOnline.EmployeeManagementUserControl">
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:Class="ShopOnline.EmployeeManagementUserControl">
 
 	<Grid Background="Black">
 		<StackPanel Background="Wheat" Margin="20">
+
 			<DataGrid IsReadOnly="True" x:Name="MainDataGrid" DoubleTapped="DataGrid_DoubleTapped">
-			<DataGrid.Columns>
-				<DataGridTextColumn Header="FullName" Binding="{Binding User.FullName}" />
-				<DataGridTextColumn Header="Email" Binding="{Binding User.Email}" />
-				<DataGridTextColumn Header="Role" Binding="{Binding User.Role.NameRole}"/>
-				<DataGridTextColumn Header="PhoneNumber" Binding="{Binding User.PhoneNumber}" />
-				<DataGridTextColumn Header="Description" Binding="{Binding User.Description}" />
-				<DataGridTextColumn Header="Login" Binding="{Binding Login1}" />
-				<DataGridTextColumn Header="Password" Binding="{Binding Password}" />
-				
-   </DataGrid.Columns>
-		</DataGrid>
+				<DataGrid.Columns>
+					<DataGridTextColumn Header="FullName" Binding="{Binding User.FullName}" />
+					<DataGridTextColumn Header="Email" Binding="{Binding User.Email}" />
+					<DataGridTextColumn Header="Role" Binding="{Binding User.Role.NameRole}"/>
+					<DataGridTextColumn Header="PhoneNumber" Binding="{Binding User.PhoneNumber}" />
+					<DataGridTextColumn Header="Description" Binding="{Binding User.Description}" />
+					<DataGridTextColumn Header="Login" Binding="{Binding Login1}" />
+					<DataGridTextColumn Header="Password"  Binding="{Binding Password}"/>
+				</DataGrid.Columns>
+			</DataGrid>
+
+			<StackPanel>
+			<Button Content="Add Employee" Margin="10" Click="AddEmployee"/>
+			<Button Content="Delete employee" Margin="10" Click="DeleteButton"/>
 			</StackPanel>
+		</StackPanel>
+		
+			
+		
 	</Grid>
-	
-	
+
+
 </UserControl>

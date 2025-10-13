@@ -32,14 +32,26 @@ public partial class EmployeeManagementUserControl : UserControl
         MainDataGrid.ItemsSource = App.DbContext.Logins.ToList();
     }
 
-    private async void Button_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+
+
+    private async void AddEmployee(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         ContextData.selectedLogin1InMainWindow = null;
 
         var createAndChangeUserWindow = new EmployeeWindow();
         var parent = this.VisualRoot as Window;
-        ;
+
         await createAndChangeUserWindow.ShowDialog(parent);
+        MainDataGrid.ItemsSource = App.DbContext.Logins.ToList();
+    }
+
+    private void DeleteButton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        var selectedLogin = MainDataGrid.SelectedItem as Login;
+
+        App.DbContext.Logins.Remove(selectedLogin);
+        App.DbContext.SaveChanges();
+
         MainDataGrid.ItemsSource = App.DbContext.Logins.ToList();
 
     }

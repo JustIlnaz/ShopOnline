@@ -17,6 +17,9 @@
 				<TextBlock Text="Номер телефона:" Grid.Column="0" Grid.Row="2"/>
 				<TextBox Width="200" Height="30" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="3" x:Name="PhoneNumberText" Text="{Binding User.PhoneNumber}"/>
 
+				<TextBlock Text="Email:" Grid.Column="0" Grid.Row="2"/>
+				<TextBox Width="200" Height="30" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="3" x:Name="EmailText" Text="{Binding User.Email}"/>
+
 				<TextBlock Text="О себе:" Grid.Column="0" Grid.Row="4"/>
 				<TextBox Width="200"  HorizontalAlignment="Left" Height="30" Grid.Column="0" Grid.Row="5" x:Name="DescriptionText" Text="{Binding User.Description}"/>
 			</StackPanel>

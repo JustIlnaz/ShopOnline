@@ -25,12 +25,14 @@ public partial class LoginWindow : Window
         string description = DescriptionText.Text?.Trim();
         string login = LoginText.Text?.Trim() ?? "";
         string password = PasswordText.Text?.Trim() ?? "";
+        string email = EmailText.Text?.Trim() ?? "";
 
-        string inputLogin = LoginText.Text?.Trim();
-        string inputPassword = PasswordText.Text?.Trim();
 
-       
+
         // Валидация
+        if (string.IsNullOrEmpty(email)){
+            return;
+        }
         if (string.IsNullOrEmpty(fullName))
         {
             return;
@@ -60,6 +62,7 @@ public partial class LoginWindow : Window
             FullName = fullName,
             PhoneNumber = phoneNumber,
             Description = description,
+            Email = email,
             RoleId = 3
         };
         App.DbContext.Users.Add(user);
@@ -68,7 +71,7 @@ public partial class LoginWindow : Window
         var loginEntity = new Login
         {
             Login1 = login.ToString(),
-            Password = HashPassword(password), // Хэшируем пароль!
+            Password =password, 
             UserId = user.IdUsers
         };
 
@@ -82,12 +85,6 @@ public partial class LoginWindow : Window
 
 
 
-    private string HashPassword(string password)
-    {
-      
-        using var sha256 = System.Security.Cryptography.SHA256.Create();
-        var bytes = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-        return Convert.ToBase64String(bytes);
-    }
+  
 
 }
