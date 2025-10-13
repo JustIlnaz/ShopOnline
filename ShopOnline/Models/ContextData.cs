@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShopOnline.Models
 {
-    internal class DataContext
+    internal class ContextData
     {
         static public Login selectedLogin1InMainWindow { get; set; } 
 

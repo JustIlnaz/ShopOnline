@@ -12,6 +12,7 @@ namespace ShopOnline
 {
     public partial class App : Application
     {
+        public static MainWindow mainWindow;
         public static AppDbContext DbContext { get; private set; } = new AppDbContext();
 
         public override void Initialize()

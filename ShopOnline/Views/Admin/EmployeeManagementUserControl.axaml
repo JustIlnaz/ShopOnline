@@ -7,7 +7,18 @@
 
 	<Grid Background="Black">
 		<StackPanel Background="Wheat" Margin="20">
-			
+			<DataGrid IsReadOnly="True" x:Name="MainDataGrid" DoubleTapped="DataGrid_DoubleTapped">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="FullName" Binding="{Binding User.FullName}" />
+				<DataGridTextColumn Header="Email" Binding="{Binding User.Email}" />
+				<DataGridTextColumn Header="Role" Binding="{Binding User.Role.NameRole}"/>
+				<DataGridTextColumn Header="PhoneNumber" Binding="{Binding User.PhoneNumber}" />
+				<DataGridTextColumn Header="Description" Binding="{Binding User.Description}" />
+				<DataGridTextColumn Header="Login" Binding="{Binding Login1}" />
+				<DataGridTextColumn Header="Password" Binding="{Binding Password}" />
+				
+   </DataGrid.Columns>
+		</DataGrid>
 			</StackPanel>
 	</Grid>
 	

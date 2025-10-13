@@ -4,5 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ShopOnline.AdminPurchasesUserControl">
-  Welcome to Avalonia!
+
+	 <Grid Background="Black">
+		<StackPanel Background="Wheat" Margin="20">
+			<StackPanel VerticalAlignment="Top" Margin="5" Spacing="5" Orientation="Horizontal"  HorizontalAlignment="Center">
+				
+			</StackPanel>
+		</StackPanel>
+ </Grid>
 </UserControl>

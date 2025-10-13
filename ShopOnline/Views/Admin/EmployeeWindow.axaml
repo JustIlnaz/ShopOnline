@@ -1,0 +1,41 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="ShopOnline.EmployeeWindow"
+        Title="EmployeeWindow">
+<Grid ColumnDefinitions="Auto, Auto" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto" Margin="20">
+
+		<StackPanel Grid.Column="0" Margin="20">
+			<TextBlock Text="Full Name" Grid.Column="0" Grid.Row="0"></TextBlock>
+			<TextBox Grid.Row="1" Width="200" Height="30" x:Name="FullNameText" Text="{Binding User.FullName}"></TextBox>
+
+			<TextBlock Text="Phone number" Grid.Column="0" Grid.Row="2"></TextBlock>
+			<TextBox Width="200" Height="30" Grid.Column="0" Grid.Row="3" x:Name="PhoneNumberText" Text="{Binding User.PhoneNumber}"></TextBox>
+
+			<TextBlock Text="Description" Grid.Column="0" Grid.Row="4"></TextBlock>
+			<TextBox Width="200" Height="30" Grid.Column="0" Grid.Row="5" x:Name="DescriptionText" Text="{Binding User.Description}"> </TextBox>
+		</StackPanel>
+
+		<StackPanel  Grid.Column="1" Margin="20">
+			<TextBlock Text="Login:" Grid.Column="1" Grid.Row="5"></TextBlock>
+			<TextBox Width="200" Height="30" Grid.Column="1" Grid.Row="5" x:Name="LoginText" Text="{Binding Login1}"></TextBox>
+
+			<TextBlock Text="Password:" Grid.Column="1" Grid.Row="6"></TextBlock>
+			<TextBox Grid.Row="6" x:Name="PasswordText" PasswordChar="*" Text="{Binding Password}"></TextBox>
+
+			<TextBlock Text="Role:" Grid.Column="1" Grid.Row="6"></TextBlock>
+			<ComboBox   Width="200" Height="30" x:Name="ComboRole" SelectedItem="{Binding User.Role}">
+				<ComboBox.ItemTemplate >
+					<DataTemplate>
+						<TextBlock Text="{Binding RoleName}" FontWeight="Bold" />
+					</DataTemplate>
+				</ComboBox.ItemTemplate>
+			</ComboBox>
+
+			<Button Grid.Row="6" Margin="20" HorizontalAlignment="Right" Click="SaveButton" Content="Save"/>
+
+		</StackPanel>
+	</Grid>
+</Window>
