@@ -24,5 +24,6 @@ namespace ShopOnline.Models
         static public Order selectedOrderInMainWindow { get; set; }
 
         static public OrderItem selectedOrderItemInMainWindow { get; set; }
+        public static User CurrentUser { get; set; }
     }
 }
