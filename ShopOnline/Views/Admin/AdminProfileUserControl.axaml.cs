@@ -6,53 +6,64 @@ using ShopOnline.Data;
 using ShopOnline.Models;
 using System;
 using System.Linq;
+using Avalonia.Interactivity;
 
 namespace ShopOnline;
 
 public partial class AdminProfileUserControl : UserControl
 {
- 
+    private AppDbContext? _db;
+    private Login? _trackedLogin;
 
     public AdminProfileUserControl()
     {
         InitializeComponent();
-
-        LoadData();
+        LoadProfile();
     }
 
-    public void RefreshData()
-    {
-        LoadData();
-    }
-
-    private void LoadData()
-    {
-        var currentUser = ContextData.CurrentUser;
-
-        if (currentUser != null)
-        {
-            var user = currentUser
-                .Include(u => u.Role)
-                .Include(u => u.Logins)
-                .FirstOrDefault(u => u.IdUsers == currentUser.IdUsers);
-
-            if (user != null)
-            {
-                FullNameTextBox.Text = user.FullName ?? "";
-                PhoneNumberTextBox.Text = user.PhoneNumber ?? "";
-                DescriptionTextBox.Text = user.Description ?? "";
-                EmailTextBox.Text = user.Email ?? "";
-                RoleTextBox.Text = user.Role?.NameRole ?? "";
-
-                var login = user.Logins.FirstOrDefault();
-                if (login != null)
-                {
-                    LoginTextBox.Text = login.Login1 ?? "";
-                    PasswordTextBox.Text = login.Password ?? "";
-                }
-            }
-        }
-    }
+   
 
   
+	private void LoadProfile()
+	{
+     
+     _db?.Dispose();
+
+			Login? login;
+			if (ContextData.selectedLogin1InMainWindow != null)
+			{
+				var selectedId = ContextData.selectedLogin1InMainWindow.IdLogins;
+                login = _db.Logins
+					.Include(l => l.User)
+					.ThenInclude(u => u.Role)
+					.FirstOrDefault(l => l.IdLogins == selectedId);
+			}
+			else
+			{
+                login = _db.Logins
+					.Include(l => l.User)
+					.ThenInclude(u => u.Role)
+					.FirstOrDefault();
+			}
+
+			if (login == null)
+			{
+				return;
+			}
+            _trackedLogin = login;
+            DataContext = _trackedLogin;
+		
+		
+	}
+
+    private void OnSaveClick(object? sender, RoutedEventArgs e)
+    {
+        
+            if (_db == null || _trackedLogin == null)
+            {
+                return;
+            }
+            _db.SaveChanges();
+       
+    }
 }

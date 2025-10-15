@@ -16,6 +16,6 @@
 			</StackPanel>
 
 			<ContentControl x:Name="MainContentArea" Margin="10"/>
-		</StackPanel>
+		</StackPanel>	
 	</Grid>
 </Window>
