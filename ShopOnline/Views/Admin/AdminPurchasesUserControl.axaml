@@ -5,11 +5,19 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ShopOnline.AdminPurchasesUserControl">
 
-	 <Grid Background="Black">
-		<StackPanel Background="Wheat" Margin="20">
-			<StackPanel VerticalAlignment="Top" Margin="5" Spacing="5" Orientation="Horizontal"  HorizontalAlignment="Center">
-				
-			</StackPanel>
-		</StackPanel>
- </Grid>
+    <Grid Background="Black">
+        <StackPanel Background="Wheat" Margin="20">
+            <TextBlock Text="All Purchases" FontSize="24" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+            <DataGrid Name="PurchasesDataGrid" Height="400" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Order ID" Binding="{Binding OrderId}"/>
+                    <DataGridTextColumn Header="Customer" Binding="{Binding CustomerName}"/>
+                    <DataGridTextColumn Header="Product" Binding="{Binding ProductName}"/>
+                    <DataGridTextColumn Header="Count" Binding="{Binding Count}"/>
+                    <DataGridTextColumn Header="Price" Binding="{Binding Price}"/>
+                    <DataGridTextColumn Header="Order Date" Binding="{Binding OrderDate}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
 </UserControl>

@@ -1,16 +1,20 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Microsoft.EntityFrameworkCore;
 using ShopOnline.Data;
 using ShopOnline.Models;
+using System;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 
 namespace ShopOnline;
 
-public partial class EmployeeManagementUserControl : UserControl
+public partial class CustomerManagementUserControl : UserControl
 {
-    public EmployeeManagementUserControl()
+    private DataGrid? customersDataGrid;
+
+    public CustomerManagementUserControl()
     {
         InitializeComponent();
         App.DbContext.Users.ToList();
@@ -22,7 +26,7 @@ public partial class EmployeeManagementUserControl : UserControl
         MainDataGrid.ItemsSource = App.DbContext.Logins
             .Include(l => l.User)
             .Include(l => l.User.Role)
-            .Where(l => EF.Functions.Like(l.User.Role.NameRole, "Администратор") || EF.Functions.Like(l.User.Role.NameRole, "Менеджер"))
+            .Where(l => EF.Functions.Like(l.User.Role.NameRole, "Покупатель") )
             .ToList();
     }
 
@@ -34,22 +38,22 @@ public partial class EmployeeManagementUserControl : UserControl
 
         ContextData.selectedLogin1InMainWindow = selectedLogin;
 
-        var createAndChangeUserWindow = new EmployeeManagementWindow();
+        var createAndChangeUserWindow = new  CustomerManagementWindow();
         var parent = this.VisualRoot as Window;
         await createAndChangeUserWindow.ShowDialog(parent);
 
         RefreshGrid();
     }
 
-    private async void AddEmployee(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private async void AddCustomer(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         ContextData.selectedLogin1InMainWindow = null;
 
-        var createAndChangeUserWindow = new EmployeeManagementWindow();
+        var createAndChangeUserWindow = new CustomerManagementWindow();
         var parent = this.VisualRoot as Window;
 
         await createAndChangeUserWindow.ShowDialog(parent);
-        
+
         RefreshGrid();
     }
 
@@ -66,5 +70,3 @@ public partial class EmployeeManagementUserControl : UserControl
         }
     }
 }
-
-

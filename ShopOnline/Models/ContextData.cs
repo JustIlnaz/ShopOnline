@@ -17,7 +17,7 @@ namespace ShopOnline.Models
 
         static public Basket selectedBasketInMainWindow {  get; set; }
 
-       static public Product selectedProductInMainWindow { get; set; }
+        static public Product selectedProductInMainWindow { get; set; }
         
         static public Category selectedCategoryInMainWindow { get; set; }   
 

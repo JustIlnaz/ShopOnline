@@ -32,7 +32,7 @@
             <TextBlock x:Name="LoginValidation" Foreground="Red" FontSize="12" Margin="0,2,0,5"/>
 
             <TextBlock Text="Password:" Margin="0,10,0,5"/>
-            <TextBox Width="200" Height="30" PasswordChar="*" Text="{Binding Password}"/>
+            <TextBox Width="200" Height="30" Text="{Binding Password}"/>
             <TextBlock x:Name="PasswordValidation" Foreground="Red" FontSize="12" Margin="0,2,0,5"/>
 
             <TextBlock Text="Role:" Margin="0,10,0,5"/>

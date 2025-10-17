@@ -31,4 +31,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\Admin\EmployeeManagementWindow.axaml.cs">
+      <DependentUpon>EmployeeManagementWindow.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

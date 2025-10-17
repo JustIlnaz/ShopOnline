@@ -1,0 +1,29 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="ShopOnline.GoodsManagementWindow"
+        Title="Tovar Management"
+        Width="600"
+        Height="450">
+    <StackPanel Margin="10">
+        <TextBlock Text="Name Product:" Margin="0,5"/>
+        <TextBox Name="NameProductText" Margin="0,5"/>
+        
+        <TextBlock Text="Description:" Margin="0,5"/>
+        <TextBox Name="DescriptionText" Height="60" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,5"/>
+        
+        <TextBlock Text="Price:" Margin="0,5"/>
+        <TextBox Name="PriceText" Margin="0,5"/>
+        
+        <TextBlock Text="Count:" Margin="0,5"/>
+        <TextBox Name="CountText" Margin="0,5"/>
+        
+        <TextBlock Text="Category:" Margin="0,5"/>
+        <ComboBox Name="CategoryComboBox" Width="200" Margin="0,5"/>
+        
+        <Button Content="Save" 
+                Click="SaveButton"
+                HorizontalAlignment="Center"
+                Margin="0,20,0,0"
+                Classes="accent"/>
+    </StackPanel>
+</Window>

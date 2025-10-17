@@ -6,17 +6,19 @@ namespace ShopOnline;
 
 public partial class AdminWindow : Window
 {
-   
-
     public AdminWindow()
     {
         InitializeComponent();
-      
     }
 
     private void NavigateToEmployeeManagement(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         MainContentArea.Content = new EmployeeManagementUserControl();
+    }
+
+    private void NavigateToCustomerManagement(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        MainContentArea.Content = new CustomerManagementUserControl();
     }
 
     private void NavigateToAdminProfile(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
