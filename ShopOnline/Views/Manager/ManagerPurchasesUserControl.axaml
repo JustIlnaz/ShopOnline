@@ -1,0 +1,23 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ShopOnline.Views.Manager.ManagerPurchasesUserControl">
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,10">
+            <TextBox Name="SearchBox" Width="200" Watermark="Search by customers email..." Margin="0,0,10,0"/>
+            <Button Content="Seatch" Click="OnSearch"/>
+        </StackPanel>
+        
+        <DataGrid Name="PurchasesGrid" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID Order" Binding="{Binding IdOrders}"/>
+                <DataGridTextColumn Header="User Email" Binding="{Binding UserEmail}"/>
+                <DataGridTextColumn Header="Order Date" Binding="{Binding OrderDate}"/>
+                <DataGridTextColumn Header="Total sum" Binding="{Binding TotalSum}"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</UserControl>

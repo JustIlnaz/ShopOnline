@@ -5,22 +5,15 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="ShopOnline.ManagerWindow"
         Title="ManagerWindow">
-	<Grid Background="Black">
-		<StackPanel Background="Wheat" Margin="20">
-			<StackPanel VerticalAlignment="Top" Orientation="Horizontal"  HorizontalAlignment="Center">
-				<ContentControl Margin="5">
-					<Button Content="Управление"/>
-				</ContentControl>
-
-				<ContentControl Margin="5">
-					<Button Content="Просмотр покупок"/>
-				</ContentControl>
-
-
-				<ContentControl Margin="5">
-					<Button Content="Редактирование профиля"/>
-				</ContentControl>
-			</StackPanel>
-		</StackPanel>
-	</Grid>
+    <Grid Background="Black">
+        <StackPanel Background="Wheat" Margin="20">
+            <StackPanel VerticalAlignment="Top" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="Управление покупателями" Click="OnCustomerManagementClick" Margin="5"/>
+                <Button Content="Управление товарами" Click="OnGoodsManagementClick" Margin="5"/>
+                <Button Content="Покупки пользователя" Click="OnUserPurchasesClick" Margin="5"/>
+                <Button Content="Редактирование профиля" Click="OnProfileEditClick" Margin="5"/>
+            </StackPanel>
+            <ContentControl Name="MainContent" Margin="0,20,0,0"/>
+        </StackPanel>
+    </Grid>
 </Window>

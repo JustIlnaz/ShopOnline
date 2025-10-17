@@ -1,20 +1,18 @@
-п»їusing Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
 using Microsoft.EntityFrameworkCore;
 using ShopOnline.Data;
 using ShopOnline.Models;
 using System;
 using System.Linq;
 
-namespace ShopOnline;
+namespace ShopOnline.Views.Manager;
 
-public partial class AdminProfileUserControl : UserControl
+public partial class ManagerProfileUserControl : UserControl
 {
     private Login? _currentLogin;
 
-    public AdminProfileUserControl()
+    public ManagerProfileUserControl()
     {
         InitializeComponent();
         LoadProfile();
@@ -46,12 +44,12 @@ public partial class AdminProfileUserControl : UserControl
             }
             else
             {
-                ShowError("РќРµ СѓРґР°Р»РѕСЃСЊ Р·Р°РіСЂСѓР·РёС‚СЊ РґР°РЅРЅС‹Рµ РїСЂРѕС„РёР»СЏ");
+                ShowError("Не удалось загрузить данные профиля");
             }
         }
         catch (Exception ex)
         {
-            ShowError($"РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё РїСЂРѕС„РёР»СЏ: {ex.Message}");
+            ShowError($"Ошибка при загрузке профиля: {ex.Message}");
         }
     }
 
@@ -61,38 +59,38 @@ public partial class AdminProfileUserControl : UserControl
         {
             if (_currentLogin == null)
             {
-                ShowError("РќРµС‚ РґР°РЅРЅС‹С… РґР»СЏ СЃРѕС…СЂР°РЅРµРЅРёСЏ");
+                ShowError("Нет данных для сохранения");
                 return;
             }
 
-            // РџСЂРѕРІРµСЂРєР° РЅР° РїСѓСЃС‚С‹Рµ РїРѕР»СЏ
+            // Проверка на пустые поля
             if (string.IsNullOrWhiteSpace(_currentLogin.Login1) ||
                 string.IsNullOrWhiteSpace(_currentLogin.Password) ||
                 string.IsNullOrWhiteSpace(_currentLogin.User.FullName) ||
                 string.IsNullOrWhiteSpace(_currentLogin.User.Email) ||
                 string.IsNullOrWhiteSpace(_currentLogin.User.PhoneNumber))
             {
-                ShowError("Р’СЃРµ РїРѕР»СЏ РєСЂРѕРјРµ РѕРїРёСЃР°РЅРёСЏ РѕР±СЏР·Р°С‚РµР»СЊРЅС‹ РґР»СЏ Р·Р°РїРѕР»РЅРµРЅРёСЏ");
+                ShowError("Все поля кроме описания обязательны для заполнения");
                 return;
             }
 
-            // РџСЂРѕРІРµСЂРєР° СЃСѓС‰РµСЃС‚РІРѕРІР°РЅРёСЏ Р»РѕРіРёРЅР°
+            // Проверка существования логина
             var existingLogin = await App.DbContext.Logins
                 .FirstOrDefaultAsync(l => l.Login1 == _currentLogin.Login1 && l.IdLogins != _currentLogin.IdLogins);
 
             if (existingLogin != null)
             {
-                ShowError("Р­С‚РѕС‚ Р»РѕРіРёРЅ СѓР¶Рµ РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ");
+                ShowError("Этот логин уже используется");
                 return;
             }
 
             App.DbContext.Logins.Update(_currentLogin);
             await App.DbContext.SaveChangesAsync();
-            ShowMessage("РџСЂРѕС„РёР»СЊ СѓСЃРїРµС€РЅРѕ РѕР±РЅРѕРІР»РµРЅ");
+            ShowMessage("Профиль успешно обновлен");
         }
         catch (Exception ex)
         {
-            ShowError($"РћС€РёР±РєР° РїСЂРё СЃРѕС…СЂР°РЅРµРЅРёРё РёР·РјРµРЅРµРЅРёР№: {ex.Message}");
+            ShowError($"Ошибка при сохранении изменений: {ex.Message}");
         }
     }
 

@@ -1,0 +1,43 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ShopOnline.Views.Customer.CustomerGoodsUserControl">
+    <Grid RowDefinitions="Auto,*" Margin="10">
+        <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto" Margin="0,0,0,10">
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="10">
+                <TextBlock VerticalAlignment="Center" Text="Категория:"/>
+                <ComboBox Name="CategoryComboBox" Width="200" 
+                         SelectionChanged="OnCategoryChanged"/>
+            </StackPanel>
+            
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right">
+                <TextBlock VerticalAlignment="Center" Text="Сортировать по:"/>
+                <ComboBox Name="SortComboBox" Width="150" SelectionChanged="OnSortChanged">
+                    <ComboBoxItem Content="Названию А-Я"/>
+                    <ComboBoxItem Content="Названию Я-А"/>
+                    <ComboBoxItem Content="Цене (возр.)"/>
+                    <ComboBoxItem Content="Цене (убыв.)"/>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="10,0,0,0">
+                <Button Content="В корзину" Click="AddToBasket"/>
+            </StackPanel>
+        </Grid>
+
+        <DataGrid Grid.Row="1" Name="ProductsDataGrid" 
+                  IsReadOnly="True"
+                  AutoGenerateColumns="False"
+                  SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название" Binding="{Binding NameProducts}"/>
+                <DataGridTextColumn Header="Описание" Binding="{Binding Description}"/>
+                <DataGridTextColumn Header="Цена" Binding="{Binding Price}"/>
+                <DataGridTextColumn Header="В наличии" Binding="{Binding CountInSklade}"/>
+                <DataGridTextColumn Header="Категория" Binding="{Binding Category.NameCategories}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>
