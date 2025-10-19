@@ -47,8 +47,10 @@ public partial class CustomerGoodsUserControl : UserControl
         // Apply search filter
         if (!string.IsNullOrWhiteSpace(searchText))
         {
+            var pattern = "%" + searchText.Trim() + "%";
+            // Use case-insensitive collation to avoid LOWER() on TEXT columns
             query = query.Where(p => p.NameProducts != null &&
-                                    p.NameProducts.Contains(searchText, StringComparison.OrdinalIgnoreCase));
+                                     EF.Functions.Like(EF.Functions.Collate(p.NameProducts, "SQL_Latin1_General_CP1_CI_AS"), pattern));
         }
 
         // Load data first
