@@ -12,12 +12,12 @@ namespace ShopOnline;
 
 public partial class CustomerManagementUserControl : UserControl
 {
-    private DataGrid? customersDataGrid;
+    
 
     public CustomerManagementUserControl()
     {
         InitializeComponent();
-        App.DbContext.Users.ToList();
+        App.DbContext.Users.ToList();   
         RefreshGrid();
     }
 

@@ -24,37 +24,37 @@
             <!-- Личная информация -->
             <StackPanel Grid.Column="0" Margin="20">
                 <TextBlock Text="Full name:" Margin="0,0,0,5"/>
-                <TextBox Width="200" Height="30" Text="{Binding User.FullName}"/>
+                <TextBox Width="200" Height="30" Text="{Binding User.FullName, Mode=TwoWay}"/>
 
                 <TextBlock Text="Email:" Margin="0,10,0,5"/>
-                <TextBox Width="200" Height="30" Text="{Binding User.Email}"/>
+                <TextBox Width="200" Height="30" Text="{Binding User.Email, Mode=TwoWay}"/>
                 
                 <TextBlock Text="Phone number:" Margin="0,10,0,5"/>
-                <TextBox Width="200" Height="30" Text="{Binding User.PhoneNumber}"/>
+                <TextBox Width="200" Height="30" Text="{Binding User.PhoneNumber, Mode=TwoWay}"/>
                 
                 <TextBlock Text="Description:" Margin="0,10,0,5"/>
                 <TextBox Width="200" Height="60" 
                          TextWrapping="Wrap" 
                          AcceptsReturn="True" 
-                         Text="{Binding User.Description}"/>
+                         Text="{Binding User.Description, Mode=TwoWay}"/>
             </StackPanel>
             
             <!-- Информация аккаунта -->
             <StackPanel Grid.Column="1" Margin="20">
                 <TextBlock Text="Login:" Margin="0,0,0,5"/>
-                <TextBox Width="200" Height="30" Text="{Binding CurrentLogin.Login1}"/>
+                <TextBox Width="200" Height="30" Text="{Binding Login1, Mode=TwoWay}"/>
 
                 <TextBlock Text="Password:" Margin="0,10,0,5"/>
                 <TextBox Width="200" Height="30" 
-                         PasswordChar="•" 
-                         Text="{Binding CurrentLogin.Password}"/>
+                         
+                         Text="{Binding Password, Mode=TwoWay}"/>
 
                 <TextBlock Text="Role:" Margin="0,10,0,5"/>
                 <TextBox Width="200" Height="30" 
                          IsReadOnly="True" 
                          Text="{Binding User.Role.NameRole}"/>
             </StackPanel>
-        </Grid>
+        </Grid> 
 
         <!-- Кнопки -->
         <StackPanel Grid.Row="2" 

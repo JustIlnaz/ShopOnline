@@ -5,6 +5,8 @@ using ShopOnline.Data;
 using ShopOnline.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Diagnostics;
 
 namespace ShopOnline;
 
@@ -13,52 +15,107 @@ public partial class CustomerManagementWindow : Window
     public CustomerManagementWindow()
     {
         InitializeComponent();
-        var dataContextLogin = new Login();
-        dataContextLogin.User = new User();
-
-        // Найти роль покупателя ("Покупатель")
-        var customerRole = App.DbContext.Roles.FirstOrDefault(r => EF.Functions.Like(r.NameRole, "Покупатель"));
-        if (customerRole != null)
-        {
-            dataContextLogin.User.Role = customerRole;
-            dataContextLogin.User.RoleId = customerRole.IdRoles;
-        }
-
-        DataContext = dataContextLogin;
-
-        if (ContextData.selectedLogin1InMainWindow == null) return;
-        DataContext = ContextData.selectedLogin1InMainWindow;
+        InitializeDataContext();
     }
 
-    private void SaveButton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private void InitializeDataContext()
     {
-        if (string.IsNullOrEmpty(FullNameText.Text)) return;
-        if (string.IsNullOrEmpty(PhoneNumberText.Text)) return;
-        if (string.IsNullOrEmpty(DescriptionText.Text)) return;
-        if (string.IsNullOrEmpty(LoginText.Text)) return;
-        if (string.IsNullOrEmpty(PasswordText.Text)) return;
-        if (string.IsNullOrEmpty(EmailText.Text)) return;
-
-        if (ContextData.selectedLogin1InMainWindow != null)
+        try
         {
-            var IdLogin = ContextData.selectedLogin1InMainWindow.IdLogins;
+            if (ContextData.selectedLogin1InMainWindow != null)
+            {
+                // Load fresh data for editing existing customer
+                var freshLogin = App.DbContext.Logins
+                    .Include(l => l.User)
+                    .ThenInclude(u => u.Role)
+                    .FirstOrDefault(l => l.IdLogins == ContextData.selectedLogin1InMainWindow.IdLogins);
 
-            var thisLogin = App.DbContext.Logins.FirstOrDefault(x => x.IdLogins == ContextData.selectedLogin1InMainWindow.IdLogins);
-            var thisUser = App.DbContext.Logins.FirstOrDefault(x => x.UserId == ContextData.selectedLogin1InMainWindow.IdLogins);
+                if (freshLogin != null)
+                {
+                    DataContext = freshLogin;
+                }
+            }
+            else
+            {
+                // Initialize new customer
+                var dataContextLogin = new Login 
+                { 
+                    User = new User() 
+                };
 
-            if (thisLogin == null) return;
+                // Get customer role
+                var customerRole = App.DbContext.Roles
+                    .FirstOrDefault(r => r.NameRole == "Покупатель");
 
-            var thisContextLogin = DataContext as Login;
-            thisLogin = thisContextLogin;
+                if (customerRole != null)
+                {
+                    dataContextLogin.User.Role = customerRole;
+                    dataContextLogin.User.RoleId = customerRole.IdRoles;
+                }
+
+                DataContext = dataContextLogin;
+            }
         }
-        else
+        catch (Exception ex)
         {
-            var thisContextLogin = DataContext as Login;
-
-            App.DbContext.Logins.Add(thisContextLogin);
-            App.DbContext.SaveChanges();
+            Debug.WriteLine($"Error initializing data context: {ex}");
         }
-        App.DbContext.SaveChanges();
-        this.Close();
+    }
+
+    private async void SaveButton(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        try
+        {
+            // Validate input
+            if (string.IsNullOrEmpty(FullNameText?.Text) ||
+                string.IsNullOrEmpty(PhoneNumberText?.Text) ||
+                string.IsNullOrEmpty(DescriptionText?.Text) ||
+                string.IsNullOrEmpty(LoginText?.Text) ||
+                string.IsNullOrEmpty(PasswordText?.Text) ||
+                string.IsNullOrEmpty(EmailText?.Text))
+            {
+                // You might want to show an error message to the user here
+                return;
+            }
+
+            var currentLogin = DataContext as Login;
+            if (currentLogin == null) return;
+
+            if (ContextData.selectedLogin1InMainWindow != null)
+            {
+                // Update existing customer
+                var existingLogin = await App.DbContext.Logins
+                    .Include(l => l.User)
+                    .FirstOrDefaultAsync(x => x.IdLogins == ContextData.selectedLogin1InMainWindow.IdLogins);
+
+                if (existingLogin != null)
+                {
+                    // Update login details
+                    existingLogin.Login1 = currentLogin.Login1;
+                    existingLogin.Password = currentLogin.Password;
+
+                    // Update user details
+                    existingLogin.User.FullName = currentLogin.User.FullName;
+                    existingLogin.User.PhoneNumber = currentLogin.User.PhoneNumber;
+                    existingLogin.User.Description = currentLogin.User.Description;
+                    existingLogin.User.Email = currentLogin.User.Email;
+
+                    await App.DbContext.SaveChangesAsync();
+                }
+            }
+            else
+            {
+                // Add new customer
+                App.DbContext.Logins.Add(currentLogin);
+                await App.DbContext.SaveChangesAsync();
+            }
+
+            Close();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error saving changes: {ex}");
+            // You might want to show an error message to the user here
+        }
     }
 }

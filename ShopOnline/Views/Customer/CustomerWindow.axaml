@@ -2,41 +2,27 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
-        x:Class="ShopOnline.CustomerWindow"
-        Title="Личный кабинет покупателя"
-        WindowStartupLocation="CenterScreen"
-        Width="1000" Height="600">
-    <Grid Background="#F0F0F0">
-        <Grid Margin="10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="ShopOnline.Views.Customer.CustomerWindow"
+        Title="Панель покупателя"
+        WindowStartupLocation="CenterScreen">
 
-            <StackPanel Grid.Row="0" Orientation="Horizontal" 
-                        Background="White" 
-                        Margin="0,0,0,10">
-                <Button Content="Просмотр товаров" 
-                        Click="OnGoodsClick"
-                        Margin="5"/>
-                <Button Content="Корзина" 
-                        Click="OnBasketClick"
-                        Margin="5"/>
-                <Button Content="Заказы" 
-                        Click="OnOrdersClick"
-                        Margin="5"/>
-                <Button Content="Редактирование профиля" 
-         
-                        Margin="5"/>
-            </StackPanel>
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-            <Border Grid.Row="1" 
-                    Background="White" 
-                    CornerRadius="4" 
-                    Padding="10">
-                <ContentControl Name="MainContent"/>
-            </Border>
-        </Grid>
+        <!-- Menu Bar -->
+        <Menu Grid.Row="0" Background="Wheat">
+            <MenuItem Header="Товары" Click="Goods_Click"/>
+            <MenuItem Header="Корзина" Click="Basket_Click"/>
+            <MenuItem Header="Заказы" Click="Orders_Click"/>
+            <MenuItem Header="Выйти" Click="LogoutClick"/>
+            <MenuItem Header="Профиль" Click="ProfileClick"/>
+        </Menu>
+
+        <!-- Content Area -->
+        <ContentControl Grid.Row="1" Name="ContentArea"/>
     </Grid>
 </Window>

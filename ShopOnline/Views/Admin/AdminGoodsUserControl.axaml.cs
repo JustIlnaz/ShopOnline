@@ -25,7 +25,8 @@ public partial class AdminGoodsUserControl : UserControl
 
     private void LoadProducts()
     {
-       
+        try
+        {
             var products = App.DbContext.Products
                 .AsNoTracking()
                 .Include(p => p.Category)
@@ -33,55 +34,85 @@ public partial class AdminGoodsUserControl : UserControl
 
             Debug.WriteLine($"Loaded {products.Count} products");
             
-            foreach (var product in products)
-            {
-                Debug.WriteLine($"Product: {product.NameProducts}, Category: {product.Category?.NameCategories ?? "No Category"}");
-            }
-
             if (ProductsDataGrid != null)
             {
-                ProductsDataGrid.ItemsSource = null; // Clear existing items
-                ProductsDataGrid.ItemsSource = products; // Set new items
+                ProductsDataGrid.ItemsSource = products;
                 Debug.WriteLine("DataGrid ItemsSource set");
             }
             else
             {
                 Debug.WriteLine("ProductsDataGrid is null!");
             }
-        
-        
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error loading products: {ex}");
+            // You might want to show an error message to the user here
+        }
     }
 
-    private void AddProduct(object? sender, RoutedEventArgs e)
+    private async void AddProduct(object? sender, RoutedEventArgs e)
     {
-        ContextData.selectedProductInMainWindow = null;
-        var window = new GoodsManagementWindow();
-        window.Closed += (s, e) => LoadProducts();
-        window.Show();
+        try
+        {
+            ContextData.selectedProductInMainWindow = null;
+            var window = new GoodsManagementWindow();
+            window.Closed += (s, e) => LoadProducts();
+            await window.ShowDialog((Window)this.VisualRoot);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error adding product: {ex}");
+        }
     }
 
-    private void EditProduct(object? sender, RoutedEventArgs e)
+    private async void EditProduct(object? sender, RoutedEventArgs e)
     {
-        var selectedProduct = ProductsDataGrid.SelectedItem as Product;
-        if (selectedProduct == null) return;
+        try
+        {
+            var selectedProduct = ProductsDataGrid.SelectedItem as Product;
+            if (selectedProduct == null) return;
 
-        ContextData.selectedProductInMainWindow = selectedProduct;
-        var window = new GoodsManagementWindow();
-        window.Closed += (s, e) => LoadProducts();
-        window.Show();
+            // Load fresh data for the selected product
+            var freshProduct = await App.DbContext.Products
+                .Include(p => p.Category)
+                .FirstOrDefaultAsync(p => p.IdProducts == selectedProduct.IdProducts);
+
+            if (freshProduct == null) return;
+
+            ContextData.selectedProductInMainWindow = freshProduct;
+            var window = new GoodsManagementWindow();
+            window.Closed += (s, e) => LoadProducts();
+            await window.ShowDialog((Window)this.VisualRoot);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error editing product: {ex}");
+        }
     }
 
-    private void DeleteProduct(object? sender, RoutedEventArgs e)
+    private async void DeleteProduct(object? sender, RoutedEventArgs e)
     {
-        var selectedProduct = ProductsDataGrid.SelectedItem as Product;
-        if (selectedProduct == null) return;
+        try
+        {
+            var selectedProduct = ProductsDataGrid.SelectedItem as Product;
+            if (selectedProduct == null) return;
 
-        var product = App.DbContext.Products.FirstOrDefault(x => x.IdProducts == selectedProduct.IdProducts);
-        if (product == null) return;
+            // Get a fresh instance of the product to delete
+            var productToDelete = await App.DbContext.Products
+                .FirstOrDefaultAsync(p => p.IdProducts == selectedProduct.IdProducts);
 
-        App.DbContext.Products.Remove(product);
-        App.DbContext.SaveChanges();
-        LoadProducts();
+            if (productToDelete != null)
+            {
+                App.DbContext.Products.Remove(productToDelete);
+                await App.DbContext.SaveChangesAsync();
+                LoadProducts();
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error deleting product: {ex}");
+        }
     }
 
     private void ProductsDataGrid_DoubleTapped(object? sender, Avalonia.Input.TappedEventArgs e)

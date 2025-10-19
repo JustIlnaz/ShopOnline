@@ -1,0 +1,89 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="400"
+             x:Class="ShopOnline.Views.Customer.CustomerProfileUserControl">
+    <Grid RowDefinitions="Auto,*" Margin="20">
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Text="Мой профиль" FontSize="20" FontWeight="Bold" 
+                   HorizontalAlignment="Center" Margin="0,0,0,20"/>
+        
+        <!-- Profile Form -->
+        <ScrollViewer Grid.Row="1">
+            <StackPanel Spacing="15" MaxWidth="500">
+                <!-- Full Name -->
+                <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Полное имя:" 
+                              VerticalAlignment="Center" Width="120"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Name="FullNameTextBox" 
+                            Text="{Binding FullName}" Margin="10,0,0,0"/>
+                    
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Введите ваше полное имя" 
+                              Foreground="Gray" FontSize="10" Margin="10,2,0,0"/>
+                </Grid>
+
+                <!-- Email -->
+                <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Email:" 
+                              VerticalAlignment="Center" Width="120"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Name="EmailTextBox" 
+                            Text="{Binding Email}" Margin="10,0,0,0"/>
+                    
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Введите ваш email адрес" 
+                              Foreground="Gray" FontSize="10" Margin="10,2,0,0"/>
+                </Grid>
+
+                <!-- Phone Number -->
+                <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Телефон:" 
+                              VerticalAlignment="Center" Width="120"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Name="PhoneTextBox" 
+                            Text="{Binding PhoneNumber}" Margin="10,0,0,0"/>
+                    
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Введите номер телефона" 
+                              Foreground="Gray" FontSize="10" Margin="10,2,0,0"/>
+                </Grid>
+
+                <!-- Description -->
+                <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Описание:" 
+                              VerticalAlignment="Top" Width="120" Margin="0,5,0,0"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Name="DescriptionTextBox" 
+                            Text="{Binding Description}" AcceptsReturn="True" 
+                            TextWrapping="Wrap" Height="80" Margin="10,0,0,0"/>
+                    
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Дополнительная информация о себе" 
+                              Foreground="Gray" FontSize="10" Margin="10,2,0,0"/>
+                </Grid>
+
+                <!-- Role Info (Read-only) -->
+                <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto">
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Роль:" 
+                              VerticalAlignment="Center" Width="120"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Name="RoleTextBox" 
+                            IsReadOnly="True" Background="LightGray" 
+                            Text="{Binding Role.NameRoles}" Margin="10,0,0,0"/>
+                    
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Ваша роль в системе" 
+                              Foreground="Gray" FontSize="10" Margin="10,2,0,0"/>
+                </Grid>
+
+                <!-- Action Buttons -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" 
+                           Margin="0,30,0,0" Spacing="15">
+                    <Button Content="Сохранить изменения" Click="SaveProfile" 
+                            Background="LightBlue" Padding="15,8" FontWeight="Bold"/>
+                    <Button Content="Отменить" Click="CancelChanges" 
+                            Background="LightGray" Padding="15,8"/>
+                    <Button Content="Сбросить пароль" Click="ResetPassword" 
+                            Background="LightCoral" Padding="15,8"/>
+                </StackPanel>
+
+                <!-- Status Messages -->
+                <TextBlock Name="StatusText" HorizontalAlignment="Center" 
+                          FontWeight="Bold" Margin="0,10,0,0"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

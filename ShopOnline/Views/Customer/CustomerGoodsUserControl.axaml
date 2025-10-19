@@ -4,39 +4,54 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ShopOnline.Views.Customer.CustomerGoodsUserControl">
-    <Grid RowDefinitions="Auto,*" Margin="10">
+    <Grid RowDefinitions="Auto,Auto,*" Margin="10">
+        <!-- Search and Filter Row -->
         <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto" Margin="0,0,0,10">
             <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="10">
-                <TextBlock VerticalAlignment="Center" Text="Êàòåãîðèÿ:"/>
+                <TextBlock VerticalAlignment="Center" Text="ÐšÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ñ:"/>
                 <ComboBox Name="CategoryComboBox" Width="200" 
                          SelectionChanged="OnCategoryChanged"/>
             </StackPanel>
             
-            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right">
-                <TextBlock VerticalAlignment="Center" Text="Ñîðòèðîâàòü ïî:"/>
-                <ComboBox Name="SortComboBox" Width="150" SelectionChanged="OnSortChanged">
-                    <ComboBoxItem Content="Íàçâàíèþ À-ß"/>
-                    <ComboBoxItem Content="Íàçâàíèþ ß-À"/>
-                    <ComboBoxItem Content="Öåíå (âîçð.)"/>
-                    <ComboBoxItem Content="Öåíå (óáûâ.)"/>
-                </ComboBox>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10" HorizontalAlignment="Center">
+                <TextBlock VerticalAlignment="Center" Text="ÐŸÐ¾Ð¸ÑÐº:"/>
+                <TextBox Name="SearchTextBox" Width="200" 
+                        TextChanged="OnSearchChanged" 
+                        Watermark="Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ Ñ‚Ð¾Ð²Ð°Ñ€Ð°..."/>
             </StackPanel>
 
-            <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="10,0,0,0">
-                <Button Content="Â êîðçèíó" Click="AddToBasket"/>
+            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right">
+                <TextBlock VerticalAlignment="Center" Text="Ð¡Ð¾Ñ€Ñ‚Ð¸Ñ€Ð¾Ð²ÐºÐ°:"/>
+                <ComboBox Name="SortComboBox" Width="150" SelectionChanged="OnSortChanged">
+                    <ComboBoxItem Content="ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ Ð-Ð¯"/>
+                    <ComboBoxItem Content="ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ Ð¯-Ð"/>
+                    <ComboBoxItem Content="Ð¦ÐµÐ½Ð° (Ð¿Ð¾ Ð²Ð¾Ð·Ñ€Ð°ÑÑ‚Ð°Ð½Ð¸ÑŽ)"/>
+                    <ComboBoxItem Content="Ð¦ÐµÐ½Ð° (Ð¿Ð¾ ÑƒÐ±Ñ‹Ð²Ð°Ð½Ð¸ÑŽ)"/>
+                </ComboBox>
             </StackPanel>
         </Grid>
 
-        <DataGrid Grid.Row="1" Name="ProductsDataGrid" 
+        <!-- Action Buttons Row -->
+        <Grid Grid.Row="1" Margin="0,0,0,10">
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <Button Content="Ð”Ð¾Ð±Ð°Ð²Ð¸Ñ‚ÑŒ Ð² ÐºÐ¾Ñ€Ð·Ð¸Ð½Ñƒ" Click="AddToBasket" 
+                        Background="LightBlue" Padding="10,5"/>
+                <Button Content="ÐžÑ‡Ð¸ÑÑ‚Ð¸Ñ‚ÑŒ Ñ„Ð¸Ð»ÑŒÑ‚Ñ€Ñ‹" Click="ClearFilters" 
+                        Background="LightGray" Padding="10,5"/>
+            </StackPanel>
+        </Grid>
+
+        <DataGrid Grid.Row="2" Name="ProductsDataGrid" 
                   IsReadOnly="True"
                   AutoGenerateColumns="False"
-                  SelectionMode="Single">
+                  SelectionMode="Single"
+                  GridLinesVisibility="Horizontal">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Íàçâàíèå" Binding="{Binding NameProducts}"/>
-                <DataGridTextColumn Header="Îïèñàíèå" Binding="{Binding Description}"/>
-                <DataGridTextColumn Header="Öåíà" Binding="{Binding Price}"/>
-                <DataGridTextColumn Header="Â íàëè÷èè" Binding="{Binding CountInSklade}"/>
-                <DataGridTextColumn Header="Êàòåãîðèÿ" Binding="{Binding Category.NameCategories}"/>
+                <DataGridTextColumn Header="ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ" Binding="{Binding NameProducts}" Width="200"/>
+                <DataGridTextColumn Header="ÐžÐ¿Ð¸ÑÐ°Ð½Ð¸Ðµ" Binding="{Binding Description}" Width="250"/>
+                <DataGridTextColumn Header="Ð¦ÐµÐ½Ð°" Binding="{Binding Price}" Width="100"/>
+                <DataGridTextColumn Header="Ð’ Ð½Ð°Ð»Ð¸Ñ‡Ð¸Ð¸" Binding="{Binding CountInSklade}" Width="100"/>
+                <DataGridTextColumn Header="ÐšÐ°Ñ‚ÐµÐ³Ð¾Ñ€Ð¸Ñ" Binding="{Binding Category.NameCategories}" Width="150"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

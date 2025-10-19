@@ -4,21 +4,37 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ShopOnline.Views.Customer.CustomerBasketUserControl">
-    <Grid RowDefinitions="*,Auto" Margin="10">
-        <DataGrid Grid.Row="0" Name="BasketItemsGrid"
+    <Grid RowDefinitions="Auto,*,Auto" Margin="10">
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Text="Корзина покупок" FontSize="18" FontWeight="Bold" 
+                   HorizontalAlignment="Center" Margin="0,0,0,10"/>
+        
+        <!-- Basket Items -->
+        <DataGrid Grid.Row="1" Name="BasketItemsGrid"
                   AutoGenerateColumns="False"
-                  SelectionMode="Single">
+                  SelectionMode="Single"
+                  GridLinesVisibility="Horizontal"
+                  CanUserReorderColumns="False"
+                  CanUserResizeColumns="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="��������" Binding="{Binding Products.NameProducts}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="����" Binding="{Binding Products.Price}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="����������" Binding="{Binding Count}"/>
-                <DataGridTemplateColumn Header="��������">
+                <DataGridTextColumn Header="Название товара" Binding="{Binding BasketItem.Products.NameProducts}" 
+                                   IsReadOnly="True" Width="200"/>
+                <DataGridTextColumn Header="Цена за единицу" Binding="{Binding BasketItem.Products.Price}" 
+                                   IsReadOnly="True" Width="120"/>
+                <DataGridTextColumn Header="Количество" Binding="{Binding BasketItem.Count}" 
+                                   Width="100"/>
+                <DataGridTextColumn Header="Общая стоимость" Binding="{Binding CalculatedTotalPrice}" 
+                                   IsReadOnly="True" Width="120"/>
+                <DataGridTemplateColumn Header="Действия" Width="200">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <Button Content="-" Click="DecreaseCount" Margin="2"/>
-                                <Button Content="+" Click="IncreaseCount" Margin="2"/>
-                                <Button Content="�������" Click="RemoveItem" Margin="2"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Content="-" Click="DecreaseCount" Margin="2" 
+                                        Background="LightCoral" Padding="5,2"/>
+                                <Button Content="+" Click="IncreaseCount" Margin="2" 
+                                        Background="LightGreen" Padding="5,2"/>
+                                <Button Content="Удалить" Click="RemoveItem" Margin="2" 
+                                        Background="LightPink" Padding="5,2"/>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -26,9 +42,25 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0" Spacing="10">
-            <TextBlock Name="TotalText" VerticalAlignment="Center" FontWeight="Bold"/>
-            <Button Content="�������� �����" Click="CreateOrder"/>
-        </StackPanel>
+        <!-- Footer with Total and Actions -->
+        <Grid Grid.Row="2" Margin="0,10,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <StackPanel Grid.Column="0" Orientation="Vertical">
+                <TextBlock Name="TotalText" FontSize="16" FontWeight="Bold" 
+                          Foreground="DarkBlue"/>
+                <TextBlock Name="ItemCountText" FontSize="12" Foreground="Gray"/>
+            </StackPanel>
+            
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10">
+                <Button Content="Очистить корзину" Click="ClearBasket" 
+                        Background="LightGray" Padding="10,5"/>
+                <Button Content="Оформить заказ" Click="CreateOrder" 
+                        Background="LightBlue" Padding="10,5" FontWeight="Bold"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

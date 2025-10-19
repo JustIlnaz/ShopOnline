@@ -29,7 +29,6 @@
 		<StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
 			<Button Content="Войти" Margin="10" FontSize="20" Click="Button_Click_1"/>
 			<Button Content="Регистрация" Margin="10" FontSize="20" Click="Button_Click"/>
-			
 		</StackPanel>
 		<TextBlock x:Name="ErrorTextBlock" Foreground="Red"
 					  HorizontalAlignment="Center" Margin="10"

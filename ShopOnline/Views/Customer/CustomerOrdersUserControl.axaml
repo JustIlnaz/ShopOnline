@@ -10,10 +10,10 @@
                   IsReadOnly="True"
                   SelectionMode="Single">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Номер заказа" Binding="{Binding IdOrders}"/>
-                <DataGridTextColumn Header="Дата" Binding="{Binding DateZakaza, StringFormat={}{0:dd.MM.yyyy HH:mm}}"/>
-                <DataGridTextColumn Header="Сумма" Binding="{Binding SumAll}"/>
-                <DataGridTextColumn Header="Статус" Binding="{Binding Status}"/>
+                <DataGridTextColumn Header="Id order" Binding="{Binding IdOrders}"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding DateZakaza, StringFormat={}{0:dd.MM.yyyy HH:mm}}"/>
+                <DataGridTextColumn Header="Sum" Binding="{Binding SumAll}"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}"/>
             </DataGrid.Columns>
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
@@ -22,9 +22,9 @@
                              IsReadOnly="True"
                              Margin="20,5">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Товар" Binding="{Binding Products.NameProducts}"/>
-                            <DataGridTextColumn Header="Количество" Binding="{Binding Count}"/>
-                            <DataGridTextColumn Header="Цена за ед." Binding="{Binding PriceZaEd}"/>
+                            <DataGridTextColumn Header="Name products" Binding="{Binding Products.NameProducts}"/>
+                            <DataGridTextColumn Header="Count" Binding="{Binding Count}"/>
+                            <DataGridTextColumn Header="Price za ed." Binding="{Binding PriceZaEd}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </DataTemplate>
