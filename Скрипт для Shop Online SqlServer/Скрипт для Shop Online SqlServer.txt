@@ -1,0 +1,345 @@
+-- Создаем Базу данных 
+CREATE DATABASE OnlineShop -- после создания убираем строку и запускаем весь скрипт
+
+USE [OnlineShop]
+GO
+/****** Object:  Table [dbo].[Basket]    Script Date: 19.10.2025 19:53:25 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Basket](
+	[Id_Basket] [int] IDENTITY(1,1) NOT NULL,
+	[Users_Id] [int] NOT NULL,
+	[Date_Start] [datetime] NULL,
+ CONSTRAINT [PK_Basket] PRIMARY KEY CLUSTERED 
+(
+	[Id_Basket] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[BasketItems]    Script Date: 19.10.2025 19:53:25 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[BasketItems](
+	[Id_BasketItems] [int] IDENTITY(1,1) NOT NULL,
+	[Basket_Id] [int] NOT NULL,
+	[Products_Id] [int] NOT NULL,
+	[Count] [text] NULL,
+ CONSTRAINT [PK_BasketItems] PRIMARY KEY CLUSTERED 
+(
+	[Id_BasketItems] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Categories]    Script Date: 19.10.2025 19:53:25 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Categories](
+	[Id_Categories] [int] IDENTITY(1,1) NOT NULL,
+	[NameCategories] [text] NULL,
+ CONSTRAINT [PK_Categories] PRIMARY KEY CLUSTERED 
+(
+	[Id_Categories] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Logins]    Script Date: 19.10.2025 19:53:25 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Logins](
+	[Id_Logins] [int] IDENTITY(1,1) NOT NULL,
+	[Login1] [nvarchar](256) NULL,
+	[Password] [text] NULL,
+	[User_Id] [int] NOT NULL,
+ CONSTRAINT [PK_Logins] PRIMARY KEY CLUSTERED 
+(
+	[Id_Logins] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[OrderItems]    Script Date: 19.10.2025 19:53:25 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[OrderItems](
+	[Id_OrderItems] [int] IDENTITY(1,1) NOT NULL,
+	[Products_Id] [int] NOT NULL,
+	[Orders_Id] [int] NOT NULL,
+	[Count] [text] NULL,
+	[PriceZaEd] [text] NULL,
+ CONSTRAINT [PK_OrderItems] PRIMARY KEY CLUSTERED 
+(
+	[Id_OrderItems] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Orders]    Script Date: 19.10.2025 19:53:25 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Orders](
+	[Id_Orders] [int] IDENTITY(1,1) NOT NULL,
+	[Users_Id] [int] NOT NULL,
+	[Date_Zakaza] [datetime] NULL,
+	[Sum_all] [text] NULL,
+	[Status] [text] NULL,
+ CONSTRAINT [PK_Orders] PRIMARY KEY CLUSTERED 
+(
+	[Id_Orders] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Products]    Script Date: 19.10.2025 19:53:25 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Products](
+	[Id_Products] [int] IDENTITY(1,1) NOT NULL,
+	[NameProducts] [text] NULL,
+	[Description] [text] NULL,
+	[Price] [text] NULL,
+	[CountInSklade] [int] NULL,
+	[DateSave] [datetime] NULL,
+	[Category_Id] [int] NOT NULL,
+ CONSTRAINT [PK_Products] PRIMARY KEY CLUSTERED 
+(
+	[Id_Products] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Roles]    Script Date: 19.10.2025 19:53:25 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Roles](
+	[Id_Roles] [int] IDENTITY(1,1) NOT NULL,
+	[NameRole] [text] NULL,
+ CONSTRAINT [PK_Roles] PRIMARY KEY CLUSTERED 
+(
+	[Id_Roles] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Users]    Script Date: 19.10.2025 19:53:25 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Users](
+	[Id_Users] [int] IDENTITY(1,1) NOT NULL,
+	[FullName] [text] NULL,
+	[PhoneNumber] [nvarchar](20) NULL,
+	[Description] [text] NULL,
+	[Role_Id] [int] NOT NULL,
+	[Email] [nvarchar](255) NULL,
+ CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
+(
+	[Id_Users] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[Basket] ON 
+
+INSERT [dbo].[Basket] ([Id_Basket], [Users_Id], [Date_Start]) VALUES (1, 21, CAST(N'2025-10-17T09:00:00.000' AS DateTime))
+INSERT [dbo].[Basket] ([Id_Basket], [Users_Id], [Date_Start]) VALUES (2, 22, CAST(N'2025-10-17T10:15:00.000' AS DateTime))
+INSERT [dbo].[Basket] ([Id_Basket], [Users_Id], [Date_Start]) VALUES (3, 23, CAST(N'2025-10-17T11:30:00.000' AS DateTime))
+INSERT [dbo].[Basket] ([Id_Basket], [Users_Id], [Date_Start]) VALUES (4, 24, CAST(N'2025-10-17T14:45:00.000' AS DateTime))
+INSERT [dbo].[Basket] ([Id_Basket], [Users_Id], [Date_Start]) VALUES (5, 25, CAST(N'2025-10-17T16:20:00.000' AS DateTime))
+INSERT [dbo].[Basket] ([Id_Basket], [Users_Id], [Date_Start]) VALUES (6, 27, NULL)
+INSERT [dbo].[Basket] ([Id_Basket], [Users_Id], [Date_Start]) VALUES (7, 29, NULL)
+INSERT [dbo].[Basket] ([Id_Basket], [Users_Id], [Date_Start]) VALUES (8, 30, NULL)
+SET IDENTITY_INSERT [dbo].[Basket] OFF
+GO
+SET IDENTITY_INSERT [dbo].[BasketItems] ON 
+
+INSERT [dbo].[BasketItems] ([Id_BasketItems], [Basket_Id], [Products_Id], [Count]) VALUES (1, 1, 3, N'1')
+INSERT [dbo].[BasketItems] ([Id_BasketItems], [Basket_Id], [Products_Id], [Count]) VALUES (2, 1, 4, N'2')
+INSERT [dbo].[BasketItems] ([Id_BasketItems], [Basket_Id], [Products_Id], [Count]) VALUES (3, 2, 5, N'1')
+INSERT [dbo].[BasketItems] ([Id_BasketItems], [Basket_Id], [Products_Id], [Count]) VALUES (4, 2, 6, N'1')
+INSERT [dbo].[BasketItems] ([Id_BasketItems], [Basket_Id], [Products_Id], [Count]) VALUES (5, 3, 7, N'1')
+INSERT [dbo].[BasketItems] ([Id_BasketItems], [Basket_Id], [Products_Id], [Count]) VALUES (6, 4, 8, N'1')
+INSERT [dbo].[BasketItems] ([Id_BasketItems], [Basket_Id], [Products_Id], [Count]) VALUES (7, 4, 9, N'1')
+INSERT [dbo].[BasketItems] ([Id_BasketItems], [Basket_Id], [Products_Id], [Count]) VALUES (8, 5, 10, N'1')
+INSERT [dbo].[BasketItems] ([Id_BasketItems], [Basket_Id], [Products_Id], [Count]) VALUES (9, 5, 11, N'1')
+SET IDENTITY_INSERT [dbo].[BasketItems] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Categories] ON 
+
+INSERT [dbo].[Categories] ([Id_Categories], [NameCategories]) VALUES (1, N'Электроника')
+INSERT [dbo].[Categories] ([Id_Categories], [NameCategories]) VALUES (2, N'Одежда')
+INSERT [dbo].[Categories] ([Id_Categories], [NameCategories]) VALUES (3, N'Книги')
+INSERT [dbo].[Categories] ([Id_Categories], [NameCategories]) VALUES (4, N'Спорт')
+INSERT [dbo].[Categories] ([Id_Categories], [NameCategories]) VALUES (5, N'Дом и сад')
+INSERT [dbo].[Categories] ([Id_Categories], [NameCategories]) VALUES (6, N'Красота и здоровье')
+INSERT [dbo].[Categories] ([Id_Categories], [NameCategories]) VALUES (7, N'Автотовары')
+INSERT [dbo].[Categories] ([Id_Categories], [NameCategories]) VALUES (8, N'Игрушки')
+INSERT [dbo].[Categories] ([Id_Categories], [NameCategories]) VALUES (9, N'Мебель')
+INSERT [dbo].[Categories] ([Id_Categories], [NameCategories]) VALUES (10, N'Бытовая техника')
+SET IDENTITY_INSERT [dbo].[Categories] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Logins] ON 
+
+INSERT [dbo].[Logins] ([Id_Logins], [Login1], [Password], [User_Id]) VALUES (13, N'admin', N'admin', 12)
+INSERT [dbo].[Logins] ([Id_Logins], [Login1], [Password], [User_Id]) VALUES (14, N'manager', N'manager', 13)
+INSERT [dbo].[Logins] ([Id_Logins], [Login1], [Password], [User_Id]) VALUES (15, N'123', N'123', 14)
+INSERT [dbo].[Logins] ([Id_Logins], [Login1], [Password], [User_Id]) VALUES (16, N'444', N'444', 15)
+INSERT [dbo].[Logins] ([Id_Logins], [Login1], [Password], [User_Id]) VALUES (18, N'123123', N'1231231', 17)
+INSERT [dbo].[Logins] ([Id_Logins], [Login1], [Password], [User_Id]) VALUES (19, N'123123', N'123123', 19)
+INSERT [dbo].[Logins] ([Id_Logins], [Login1], [Password], [User_Id]) VALUES (21, N'annap', N'annap123', 21)
+INSERT [dbo].[Logins] ([Id_Logins], [Login1], [Password], [User_Id]) VALUES (22, N'sergeyi', N'sergeyi123', 22)
+INSERT [dbo].[Logins] ([Id_Logins], [Login1], [Password], [User_Id]) VALUES (23, N'kate_s', N'kate123', 23)
+INSERT [dbo].[Logins] ([Id_Logins], [Login1], [Password], [User_Id]) VALUES (24, N'dmitryk', N'dmitry123', 24)
+INSERT [dbo].[Logins] ([Id_Logins], [Login1], [Password], [User_Id]) VALUES (25, N'olgan', N'olga123', 25)
+INSERT [dbo].[Logins] ([Id_Logins], [Login1], [Password], [User_Id]) VALUES (26, N'12345678', N'12345678', 26)
+INSERT [dbo].[Logins] ([Id_Logins], [Login1], [Password], [User_Id]) VALUES (27, N'ilnaz123', N'K455t2dt', 27)
+INSERT [dbo].[Logins] ([Id_Logins], [Login1], [Password], [User_Id]) VALUES (28, N'123123', N'1231231', 28)
+INSERT [dbo].[Logins] ([Id_Logins], [Login1], [Password], [User_Id]) VALUES (29, N'test', N'test', 29)
+INSERT [dbo].[Logins] ([Id_Logins], [Login1], [Password], [User_Id]) VALUES (30, N'тест', N'cQnyJBfP', 30)
+SET IDENTITY_INSERT [dbo].[Logins] OFF
+GO
+SET IDENTITY_INSERT [dbo].[OrderItems] ON 
+
+INSERT [dbo].[OrderItems] ([Id_OrderItems], [Products_Id], [Orders_Id], [Count], [PriceZaEd]) VALUES (1, 3, 1, N'1', N'7 490')
+INSERT [dbo].[OrderItems] ([Id_OrderItems], [Products_Id], [Orders_Id], [Count], [PriceZaEd]) VALUES (2, 4, 1, N'2', N'1 290')
+INSERT [dbo].[OrderItems] ([Id_OrderItems], [Products_Id], [Orders_Id], [Count], [PriceZaEd]) VALUES (3, 5, 2, N'1', N'2 490')
+INSERT [dbo].[OrderItems] ([Id_OrderItems], [Products_Id], [Orders_Id], [Count], [PriceZaEd]) VALUES (4, 6, 2, N'1', N'1 890')
+INSERT [dbo].[OrderItems] ([Id_OrderItems], [Products_Id], [Orders_Id], [Count], [PriceZaEd]) VALUES (5, 7, 3, N'1', N'3 990')
+INSERT [dbo].[OrderItems] ([Id_OrderItems], [Products_Id], [Orders_Id], [Count], [PriceZaEd]) VALUES (6, 8, 4, N'1', N'34 990')
+INSERT [dbo].[OrderItems] ([Id_OrderItems], [Products_Id], [Orders_Id], [Count], [PriceZaEd]) VALUES (7, 9, 4, N'1', N'12 490')
+INSERT [dbo].[OrderItems] ([Id_OrderItems], [Products_Id], [Orders_Id], [Count], [PriceZaEd]) VALUES (8, 10, 5, N'1', N'5 790')
+INSERT [dbo].[OrderItems] ([Id_OrderItems], [Products_Id], [Orders_Id], [Count], [PriceZaEd]) VALUES (9, 11, 5, N'1', N'21 990')
+INSERT [dbo].[OrderItems] ([Id_OrderItems], [Products_Id], [Orders_Id], [Count], [PriceZaEd]) VALUES (10, 2, 6, N'2', N'34 490 ')
+INSERT [dbo].[OrderItems] ([Id_OrderItems], [Products_Id], [Orders_Id], [Count], [PriceZaEd]) VALUES (11, 3, 6, N'3', N'89 990')
+INSERT [dbo].[OrderItems] ([Id_OrderItems], [Products_Id], [Orders_Id], [Count], [PriceZaEd]) VALUES (12, 13, 7, N'1', N'21 990')
+INSERT [dbo].[OrderItems] ([Id_OrderItems], [Products_Id], [Orders_Id], [Count], [PriceZaEd]) VALUES (13, 12, 7, N'1', N'5 790')
+INSERT [dbo].[OrderItems] ([Id_OrderItems], [Products_Id], [Orders_Id], [Count], [PriceZaEd]) VALUES (14, 2, 8, N'2', N'34 490 ')
+INSERT [dbo].[OrderItems] ([Id_OrderItems], [Products_Id], [Orders_Id], [Count], [PriceZaEd]) VALUES (15, 16, 8, N'2', N'1 890')
+INSERT [dbo].[OrderItems] ([Id_OrderItems], [Products_Id], [Orders_Id], [Count], [PriceZaEd]) VALUES (16, 2, 9, N'1', N'34 490 ')
+INSERT [dbo].[OrderItems] ([Id_OrderItems], [Products_Id], [Orders_Id], [Count], [PriceZaEd]) VALUES (17, 3, 9, N'1', N'89 990')
+INSERT [dbo].[OrderItems] ([Id_OrderItems], [Products_Id], [Orders_Id], [Count], [PriceZaEd]) VALUES (18, 2, 10, N'1', N'34 490 ')
+INSERT [dbo].[OrderItems] ([Id_OrderItems], [Products_Id], [Orders_Id], [Count], [PriceZaEd]) VALUES (19, 3, 11, N'1', N'89 990')
+INSERT [dbo].[OrderItems] ([Id_OrderItems], [Products_Id], [Orders_Id], [Count], [PriceZaEd]) VALUES (20, 6, 12, N'3', N'1 290')
+SET IDENTITY_INSERT [dbo].[OrderItems] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Orders] ON 
+
+INSERT [dbo].[Orders] ([Id_Orders], [Users_Id], [Date_Zakaza], [Sum_all], [Status]) VALUES (1, 21, CAST(N'2025-10-16T12:30:00.000' AS DateTime), N'15 270', N'Выполнен')
+INSERT [dbo].[Orders] ([Id_Orders], [Users_Id], [Date_Zakaza], [Sum_all], [Status]) VALUES (2, 22, CAST(N'2025-10-16T14:45:00.000' AS DateTime), N'4 380', N'В обработке')
+INSERT [dbo].[Orders] ([Id_Orders], [Users_Id], [Date_Zakaza], [Sum_all], [Status]) VALUES (3, 23, CAST(N'2025-10-17T10:20:00.000' AS DateTime), N'3 990', N'Доставляется')
+INSERT [dbo].[Orders] ([Id_Orders], [Users_Id], [Date_Zakaza], [Sum_all], [Status]) VALUES (4, 24, CAST(N'2025-10-17T15:10:00.000' AS DateTime), N'47 480', N'Новый')
+INSERT [dbo].[Orders] ([Id_Orders], [Users_Id], [Date_Zakaza], [Sum_all], [Status]) VALUES (5, 25, CAST(N'2025-10-17T17:35:00.000' AS DateTime), N'27 780', N'В обработке')
+INSERT [dbo].[Orders] ([Id_Orders], [Users_Id], [Date_Zakaza], [Sum_all], [Status]) VALUES (6, 27, CAST(N'2025-10-19T11:25:00.000' AS DateTime), N'338950', N'status')
+INSERT [dbo].[Orders] ([Id_Orders], [Users_Id], [Date_Zakaza], [Sum_all], [Status]) VALUES (7, 27, CAST(N'2025-10-19T11:26:00.000' AS DateTime), N'27780', N'status')
+INSERT [dbo].[Orders] ([Id_Orders], [Users_Id], [Date_Zakaza], [Sum_all], [Status]) VALUES (8, 29, CAST(N'2025-10-19T11:27:00.000' AS DateTime), N'72760', N'status')
+INSERT [dbo].[Orders] ([Id_Orders], [Users_Id], [Date_Zakaza], [Sum_all], [Status]) VALUES (9, 29, CAST(N'2025-10-19T11:38:00.000' AS DateTime), N'124480', N'status')
+INSERT [dbo].[Orders] ([Id_Orders], [Users_Id], [Date_Zakaza], [Sum_all], [Status]) VALUES (10, 29, CAST(N'2025-10-19T11:44:00.000' AS DateTime), N'34490', N'status')
+INSERT [dbo].[Orders] ([Id_Orders], [Users_Id], [Date_Zakaza], [Sum_all], [Status]) VALUES (11, 29, CAST(N'2025-10-19T12:08:09.617' AS DateTime), N'89990', N'В пути')
+INSERT [dbo].[Orders] ([Id_Orders], [Users_Id], [Date_Zakaza], [Sum_all], [Status]) VALUES (12, 30, CAST(N'2025-10-19T12:27:00.000' AS DateTime), N'3870', N'В пути')
+SET IDENTITY_INSERT [dbo].[Orders] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Products] ON 
+
+INSERT [dbo].[Products] ([Id_Products], [NameProducts], [Description], [Price], [CountInSklade], [DateSave], [Category_Id]) VALUES (2, N' Apple AirPods Pro 3 ', N'Наушники Apple AirPods Pro 3 обеспечивают глубокие басы и широкую звуковую сцену.', N'34 490 ', 99, CAST(N'2025-10-18T18:56:42.000' AS DateTime), 1)
+INSERT [dbo].[Products] ([Id_Products], [NameProducts], [Description], [Price], [CountInSklade], [DateSave], [Category_Id]) VALUES (3, N'Samsung Galaxy S24', N'Смартфон с улучшенной камерой и долгим временем работы батареи', N'89 990', 14, CAST(N'2025-10-15T10:00:00.000' AS DateTime), 1)
+INSERT [dbo].[Products] ([Id_Products], [NameProducts], [Description], [Price], [CountInSklade], [DateSave], [Category_Id]) VALUES (4, N'Xiaomi Redmi Note 13', N'Бюджетный смартфон с отличными характеристиками', N'24 990', 25, CAST(N'2025-10-14T11:30:00.000' AS DateTime), 1)
+INSERT [dbo].[Products] ([Id_Products], [NameProducts], [Description], [Price], [CountInSklade], [DateSave], [Category_Id]) VALUES (5, N'Джинсы Levi''s 501', N'Классические прямые джинсы премиального качества', N'7 490', 40, CAST(N'2025-10-13T09:15:00.000' AS DateTime), 2)
+INSERT [dbo].[Products] ([Id_Products], [NameProducts], [Description], [Price], [CountInSklade], [DateSave], [Category_Id]) VALUES (6, N'Футболка базовая', N'Хлопковая футболка различных цветов', N'1 290', 97, CAST(N'2025-10-12T14:20:00.000' AS DateTime), 2)
+INSERT [dbo].[Products] ([Id_Products], [NameProducts], [Description], [Price], [CountInSklade], [DateSave], [Category_Id]) VALUES (7, N'Война и мир', N'Роман-эпопея Льва Толстого в подарочном издании', N'2 490', 30, CAST(N'2025-10-11T16:45:00.000' AS DateTime), 3)
+INSERT [dbo].[Products] ([Id_Products], [NameProducts], [Description], [Price], [CountInSklade], [DateSave], [Category_Id]) VALUES (8, N'Преступление и наказание', N'Классический роман Ф.М. Достоевского', N'1 890', 35, CAST(N'2025-10-10T13:10:00.000' AS DateTime), 3)
+INSERT [dbo].[Products] ([Id_Products], [NameProducts], [Description], [Price], [CountInSklade], [DateSave], [Category_Id]) VALUES (9, N'Фитнес-браслет Xiaomi Mi Band 8', N'Умный браслет с отслеживанием активности и сна', N'3 990', 50, CAST(N'2025-10-09T15:30:00.000' AS DateTime), 4)
+INSERT [dbo].[Products] ([Id_Products], [NameProducts], [Description], [Price], [CountInSklade], [DateSave], [Category_Id]) VALUES (10, N'Беговая дорожка', N'Электрическая беговая дорожка для дома', N'34 990', 8, CAST(N'2025-10-08T12:00:00.000' AS DateTime), 4)
+INSERT [dbo].[Products] ([Id_Products], [NameProducts], [Description], [Price], [CountInSklade], [DateSave], [Category_Id]) VALUES (11, N'Кофейный столик', N'Современный кофейный столик из дерева и стекла', N'12 490', 12, CAST(N'2025-10-07T17:25:00.000' AS DateTime), 5)
+INSERT [dbo].[Products] ([Id_Products], [NameProducts], [Description], [Price], [CountInSklade], [DateSave], [Category_Id]) VALUES (12, N'Набор садовых инструментов', N'Профессиональный набор для садовых работ', N'5 790', 20, CAST(N'2025-10-06T10:45:00.000' AS DateTime), 5)
+INSERT [dbo].[Products] ([Id_Products], [NameProducts], [Description], [Price], [CountInSklade], [DateSave], [Category_Id]) VALUES (13, N'Кофеварка Philips', N'Автоматическая кофеварка с капучинатором', N'21 990', 18, CAST(N'2025-10-05T14:15:00.000' AS DateTime), 10)
+INSERT [dbo].[Products] ([Id_Products], [NameProducts], [Description], [Price], [CountInSklade], [DateSave], [Category_Id]) VALUES (14, N'Машинное масло Mobil 1', N'Синтетическое моторное масло 5W-30', N'3 290', 60, CAST(N'2025-10-04T11:20:00.000' AS DateTime), 6)
+INSERT [dbo].[Products] ([Id_Products], [NameProducts], [Description], [Price], [CountInSklade], [DateSave], [Category_Id]) VALUES (15, N'Конструктор LEGO', N'Классический конструктор для детей', N'4 990', 45, CAST(N'2025-10-03T16:50:00.000' AS DateTime), 7)
+INSERT [dbo].[Products] ([Id_Products], [NameProducts], [Description], [Price], [CountInSklade], [DateSave], [Category_Id]) VALUES (16, N'Крем для лица', N'Увлажняющий крем с SPF защитой', N'1 890', 75, CAST(N'2025-10-02T13:40:00.000' AS DateTime), 6)
+SET IDENTITY_INSERT [dbo].[Products] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Roles] ON 
+
+INSERT [dbo].[Roles] ([Id_Roles], [NameRole]) VALUES (1, N'Администратор')
+INSERT [dbo].[Roles] ([Id_Roles], [NameRole]) VALUES (2, N'Менеджер')
+INSERT [dbo].[Roles] ([Id_Roles], [NameRole]) VALUES (3, N'Покупатель')
+INSERT [dbo].[Roles] ([Id_Roles], [NameRole]) VALUES (4, N'СуперАдмин')
+INSERT [dbo].[Roles] ([Id_Roles], [NameRole]) VALUES (5, N'Контент-менеджер')
+SET IDENTITY_INSERT [dbo].[Roles] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Users] ON 
+
+INSERT [dbo].[Users] ([Id_Users], [FullName], [PhoneNumber], [Description], [Role_Id], [Email]) VALUES (12, N'Ilnaz', N'+7939393221', N'ya123', 1, N'admin@mail.ru')
+INSERT [dbo].[Users] ([Id_Users], [FullName], [PhoneNumber], [Description], [Role_Id], [Email]) VALUES (13, N'Maks', N'+7777777', N'krutoi wqq', 2, N'Maks@ktits.ru')
+INSERT [dbo].[Users] ([Id_Users], [FullName], [PhoneNumber], [Description], [Role_Id], [Email]) VALUES (14, N'Zlata', N'+79393993', N'крутышка', 1, N'zlata@mail.ru')
+INSERT [dbo].[Users] ([Id_Users], [FullName], [PhoneNumber], [Description], [Role_Id], [Email]) VALUES (15, N'Marat', N'+79852321', N'Legenda', 2, N'marat@mail.ru')
+INSERT [dbo].[Users] ([Id_Users], [FullName], [PhoneNumber], [Description], [Role_Id], [Email]) VALUES (16, N'test', N'test', N'test', 2, N'test')
+INSERT [dbo].[Users] ([Id_Users], [FullName], [PhoneNumber], [Description], [Role_Id], [Email]) VALUES (17, N'Аделя', N'+793977712', N'you', 3, N'adelka@gmail.com')
+INSERT [dbo].[Users] ([Id_Users], [FullName], [PhoneNumber], [Description], [Role_Id], [Email]) VALUES (19, N'Azalia', N'+7151515151', N'coolgirl', 3, N'azalia@outlook.com')
+INSERT [dbo].[Users] ([Id_Users], [FullName], [PhoneNumber], [Description], [Role_Id], [Email]) VALUES (20, N'test', N'test', N'test', 3, N'test')
+INSERT [dbo].[Users] ([Id_Users], [FullName], [PhoneNumber], [Description], [Role_Id], [Email]) VALUES (21, N'Анна Петрова', N'+79161234567', N'Постоянный клиент', 3, N'anna.petrova@mail.ru')
+INSERT [dbo].[Users] ([Id_Users], [FullName], [PhoneNumber], [Description], [Role_Id], [Email]) VALUES (22, N'Сергей Иванов', N'+79031234568', N'VIP клиент', 3, N'sergey.ivanov@gmail.com')
+INSERT [dbo].[Users] ([Id_Users], [FullName], [PhoneNumber], [Description], [Role_Id], [Email]) VALUES (23, N'Екатерина Смирнова', N'+79161234569', N'Новый клиент', 3, N'ekaterina.smirnova@yandex.ru')
+INSERT [dbo].[Users] ([Id_Users], [FullName], [PhoneNumber], [Description], [Role_Id], [Email]) VALUES (24, N'Дмитрий Козлов', N'+79031234570', N'Оптовый покупатель', 3, N'dmitry.kozlov@mail.ru')
+INSERT [dbo].[Users] ([Id_Users], [FullName], [PhoneNumber], [Description], [Role_Id], [Email]) VALUES (25, N'Ольга Новикова', N'+79161234571', N'Частый покупатель', 3, N'olga.novikova@gmail.com')
+INSERT [dbo].[Users] ([Id_Users], [FullName], [PhoneNumber], [Description], [Role_Id], [Email]) VALUES (26, N'Елизавета', N'+7939232', N'love', 3, N'lisa@mail.ru')
+INSERT [dbo].[Users] ([Id_Users], [FullName], [PhoneNumber], [Description], [Role_Id], [Email]) VALUES (27, N'Ilnaz', N'+7929292', N'ya2', 3, N'ilnazilk@mail.ru')
+INSERT [dbo].[Users] ([Id_Users], [FullName], [PhoneNumber], [Description], [Role_Id], [Email]) VALUES (28, N'test', N'test', N'test', 5, N'test@mail.ru')
+INSERT [dbo].[Users] ([Id_Users], [FullName], [PhoneNumber], [Description], [Role_Id], [Email]) VALUES (29, N'test', N'test', N'test', 3, N'test')
+INSERT [dbo].[Users] ([Id_Users], [FullName], [PhoneNumber], [Description], [Role_Id], [Email]) VALUES (30, N'тест', N'тест', N'тест', 3, N'тест')
+SET IDENTITY_INSERT [dbo].[Users] OFF
+GO
+ALTER TABLE [dbo].[Basket]  WITH CHECK ADD  CONSTRAINT [FK_Basket_Users] FOREIGN KEY([Users_Id])
+REFERENCES [dbo].[Users] ([Id_Users])
+GO
+ALTER TABLE [dbo].[Basket] CHECK CONSTRAINT [FK_Basket_Users]
+GO
+ALTER TABLE [dbo].[BasketItems]  WITH CHECK ADD  CONSTRAINT [FK_BasketItems_Basket] FOREIGN KEY([Basket_Id])
+REFERENCES [dbo].[Basket] ([Id_Basket])
+GO
+ALTER TABLE [dbo].[BasketItems] CHECK CONSTRAINT [FK_BasketItems_Basket]
+GO
+ALTER TABLE [dbo].[BasketItems]  WITH CHECK ADD  CONSTRAINT [FK_BasketItems_Products] FOREIGN KEY([Products_Id])
+REFERENCES [dbo].[Products] ([Id_Products])
+GO
+ALTER TABLE [dbo].[BasketItems] CHECK CONSTRAINT [FK_BasketItems_Products]
+GO
+ALTER TABLE [dbo].[Logins]  WITH CHECK ADD  CONSTRAINT [FK_Logins_Users] FOREIGN KEY([User_Id])
+REFERENCES [dbo].[Users] ([Id_Users])
+GO
+ALTER TABLE [dbo].[Logins] CHECK CONSTRAINT [FK_Logins_Users]
+GO
+ALTER TABLE [dbo].[OrderItems]  WITH CHECK ADD  CONSTRAINT [FK_OrderItems_Orders] FOREIGN KEY([Orders_Id])
+REFERENCES [dbo].[Orders] ([Id_Orders])
+GO
+ALTER TABLE [dbo].[OrderItems] CHECK CONSTRAINT [FK_OrderItems_Orders]
+GO
+ALTER TABLE [dbo].[OrderItems]  WITH CHECK ADD  CONSTRAINT [FK_OrderItems_Products] FOREIGN KEY([Products_Id])
+REFERENCES [dbo].[Products] ([Id_Products])
+GO
+ALTER TABLE [dbo].[OrderItems] CHECK CONSTRAINT [FK_OrderItems_Products]
+GO
+ALTER TABLE [dbo].[Orders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_Users] FOREIGN KEY([Users_Id])
+REFERENCES [dbo].[Users] ([Id_Users])
+GO
+ALTER TABLE [dbo].[Orders] CHECK CONSTRAINT [FK_Orders_Users]
+GO
+ALTER TABLE [dbo].[Products]  WITH CHECK ADD  CONSTRAINT [FK_Products_Categories] FOREIGN KEY([Category_Id])
+REFERENCES [dbo].[Categories] ([Id_Categories])
+GO
+ALTER TABLE [dbo].[Products] CHECK CONSTRAINT [FK_Products_Categories]
+GO
+ALTER TABLE [dbo].[Users]  WITH CHECK ADD  CONSTRAINT [FK_Users_Roles] FOREIGN KEY([Role_Id])
+REFERENCES [dbo].[Roles] ([Id_Roles])
+GO
+ALTER TABLE [dbo].[Users] CHECK CONSTRAINT [FK_Users_Roles]
+GO

@@ -1,0 +1,230 @@
+-- Создаем Базу данных
+CREATE DATABASE OnlineShop;
+
+
+
+-- Создание таблиц
+CREATE TABLE Roles (
+    Id_Roles SERIAL PRIMARY KEY,
+    NameRole TEXT
+);
+
+CREATE TABLE Users (
+    Id_Users SERIAL PRIMARY KEY,
+    FullName TEXT,
+    PhoneNumber VARCHAR(20),
+    Description TEXT,
+    Role_Id INTEGER NOT NULL,
+    Email VARCHAR(255),
+    CONSTRAINT FK_Users_Roles FOREIGN KEY (Role_Id) REFERENCES Roles(Id_Roles)
+);
+
+CREATE TABLE Logins (
+    Id_Logins SERIAL PRIMARY KEY,
+    Login1 VARCHAR(256),
+    Password TEXT,
+    User_Id INTEGER NOT NULL,
+    CONSTRAINT FK_Logins_Users FOREIGN KEY (User_Id) REFERENCES Users(Id_Users)
+);
+
+CREATE TABLE Categories (
+    Id_Categories SERIAL PRIMARY KEY,
+    NameCategories TEXT
+);
+
+CREATE TABLE Products (
+    Id_Products SERIAL PRIMARY KEY,
+    NameProducts TEXT,
+    Description TEXT,
+    Price TEXT,
+    CountInSklade INTEGER,
+    DateSave TIMESTAMP,
+    Category_Id INTEGER NOT NULL,
+    CONSTRAINT FK_Products_Categories FOREIGN KEY (Category_Id) REFERENCES Categories(Id_Categories)
+);
+
+CREATE TABLE Basket (
+    Id_Basket SERIAL PRIMARY KEY,
+    Users_Id INTEGER NOT NULL,
+    Date_Start TIMESTAMP,
+    CONSTRAINT FK_Basket_Users FOREIGN KEY (Users_Id) REFERENCES Users(Id_Users)
+);
+
+CREATE TABLE BasketItems (
+    Id_BasketItems SERIAL PRIMARY KEY,
+    Basket_Id INTEGER NOT NULL,
+    Products_Id INTEGER NOT NULL,
+    Count TEXT,
+    CONSTRAINT FK_BasketItems_Basket FOREIGN KEY (Basket_Id) REFERENCES Basket(Id_Basket),
+    CONSTRAINT FK_BasketItems_Products FOREIGN KEY (Products_Id) REFERENCES Products(Id_Products)
+);
+
+CREATE TABLE Orders (
+    Id_Orders SERIAL PRIMARY KEY,
+    Users_Id INTEGER NOT NULL,
+    Date_Zakaza TIMESTAMP,
+    Sum_all TEXT,
+    Status TEXT,
+    CONSTRAINT FK_Orders_Users FOREIGN KEY (Users_Id) REFERENCES Users(Id_Users)
+);
+
+CREATE TABLE OrderItems (
+    Id_OrderItems SERIAL PRIMARY KEY,
+    Products_Id INTEGER NOT NULL,
+    Orders_Id INTEGER NOT NULL,
+    Count TEXT,
+    PriceZaEd TEXT,
+    CONSTRAINT FK_OrderItems_Products FOREIGN KEY (Products_Id) REFERENCES Products(Id_Products),
+    CONSTRAINT FK_OrderItems_Orders FOREIGN KEY (Orders_Id) REFERENCES Orders(Id_Orders)
+);
+
+-- Вставка данных в таблицу Roles
+INSERT INTO Roles (Id_Roles, NameRole) VALUES
+(1, 'Администратор'),
+(2, 'Менеджер'),
+(3, 'Покупатель'),
+(4, 'СуперАдмин'),
+(5, 'Контент-менеджер');
+
+-- Вставка данных в таблицу Users
+INSERT INTO Users (Id_Users, FullName, PhoneNumber, Description, Role_Id, Email) VALUES
+(12, 'Ilnaz', '+7939393221', 'ya123', 1, 'admin@mail.ru'),
+(13, 'Maks', '+7777777', 'krutoi wqq', 2, 'Maks@ktits.ru'),
+(14, 'Zlata', '+79393993', 'крутышка', 1, 'zlata@mail.ru'),
+(15, 'Marat', '+79852321', 'Legenda', 2, 'marat@mail.ru'),
+(16, 'test', 'test', 'test', 2, 'test'),
+(17, 'Аделя', '+793977712', 'you', 3, 'adelka@gmail.com'),
+(19, 'Azalia', '+7151515151', 'coolgirl', 3, 'azalia@outlook.com'),
+(20, 'test', 'test', 'test', 3, 'test'),
+(21, 'Анна Петрова', '+79161234567', 'Постоянный клиент', 3, 'anna.petrova@mail.ru'),
+(22, 'Сергей Иванов', '+79031234568', 'VIP клиент', 3, 'sergey.ivanov@gmail.com'),
+(23, 'Екатерина Смирнова', '+79161234569', 'Новый клиент', 3, 'ekaterina.smirnova@yandex.ru'),
+(24, 'Дмитрий Козлов', '+79031234570', 'Оптовый покупатель', 3, 'dmitry.kozlov@mail.ru'),
+(25, 'Ольга Новикова', '+79161234571', 'Частый покупатель', 3, 'olga.novikova@gmail.com'),
+(26, 'Елизавета', '+7939232', 'love', 3, 'lisa@mail.ru'),
+(27, 'Ilnaz', '+7929292', 'ya2', 3, 'ilnazilk@mail.ru'),
+(28, 'test', 'test', 'test', 5, 'test@mail.ru'),
+(29, 'test', 'test', 'test', 3, 'test'),
+(30, 'тест', 'тест', 'тест', 3, 'тест');
+
+-- Вставка данных в таблицу Logins
+INSERT INTO Logins (Id_Logins, Login1, Password, User_Id) VALUES
+(13, 'admin', 'admin', 12),
+(14, 'manager', 'manager', 13),
+(15, '123', '123', 14),
+(16, '444', '444', 15),
+(18, '123123', '1231231', 17),
+(19, '123123', '123123', 19),
+(21, 'annap', 'annap123', 21),
+(22, 'sergeyi', 'sergeyi123', 22),
+(23, 'kate_s', 'kate123', 23),
+(24, 'dmitryk', 'dmitry123', 24),
+(25, 'olgan', 'olga123', 25),
+(26, '12345678', '12345678', 26),
+(27, 'ilnaz123', 'K455t2dt', 27),
+(28, '123123', '1231231', 28),
+(29, 'test', 'test', 29),
+(30, 'тест', 'cQnyJBfP', 30);
+
+-- Вставка данных в таблицу Categories
+INSERT INTO Categories (Id_Categories, NameCategories) VALUES
+(1, 'Электроника'),
+(2, 'Одежда'),
+(3, 'Книги'),
+(4, 'Спорт'),
+(5, 'Дом и сад'),
+(6, 'Красота и здоровье'),
+(7, 'Автотовары'),
+(8, 'Игрушки'),
+(9, 'Мебель'),
+(10, 'Бытовая техника');
+
+-- Вставка данных в таблицу Products
+INSERT INTO Products (Id_Products, NameProducts, Description, Price, CountInSklade, DateSave, Category_Id) VALUES
+(2, ' Apple AirPods Pro 3 ', 'Наушники Apple AirPods Pro 3 обеспечивают глубокие басы и широкую звуковую сцену.', '34 490 ', 99, '2025-10-18 18:56:42', 1),
+(3, 'Samsung Galaxy S24', 'Смартфон с улучшенной камерой и долгим временем работы батареи', '89 990', 14, '2025-10-15 10:00:00', 1),
+(4, 'Xiaomi Redmi Note 13', 'Бюджетный смартфон с отличными характеристиками', '24 990', 25, '2025-10-14 11:30:00', 1),
+(5, 'Джинсы Levi''s 501', 'Классические прямые джинсы премиального качества', '7 490', 40, '2025-10-13 09:15:00', 2),
+(6, 'Футболка базовая', 'Хлопковая футболка различных цветов', '1 290', 97, '2025-10-12 14:20:00', 2),
+(7, 'Война и мир', 'Роман-эпопея Льва Толстого в подарочном издании', '2 490', 30, '2025-10-11 16:45:00', 3),
+(8, 'Преступление и наказание', 'Классический роман Ф.М. Достоевского', '1 890', 35, '2025-10-10 13:10:00', 3),
+(9, 'Фитнес-браслет Xiaomi Mi Band 8', 'Умный браслет с отслеживанием активности и сна', '3 990', 50, '2025-10-09 15:30:00', 4),
+(10, 'Беговая дорожка', 'Электрическая беговая дорожка для дома', '34 990', 8, '2025-10-08 12:00:00', 4),
+(11, 'Кофейный столик', 'Современный кофейный столик из дерева и стекла', '12 490', 12, '2025-10-07 17:25:00', 5),
+(12, 'Набор садовых инструментов', 'Профессиональный набор для садовых работ', '5 790', 20, '2025-10-06 10:45:00', 5),
+(13, 'Кофеварка Philips', 'Автоматическая кофеварка с капучинатором', '21 990', 18, '2025-10-05 14:15:00', 10),
+(14, 'Машинное масло Mobil 1', 'Синтетическое моторное масло 5W-30', '3 290', 60, '2025-10-04 11:20:00', 6),
+(15, 'Конструктор LEGO', 'Классический конструктор для детей', '4 990', 45, '2025-10-03 16:50:00', 7),
+(16, 'Крем для лица', 'Увлажняющий крем с SPF защитой', '1 890', 75, '2025-10-02 13:40:00', 6);
+
+-- Вставка данных в таблицу Basket
+INSERT INTO Basket (Id_Basket, Users_Id, Date_Start) VALUES
+(1, 21, '2025-10-17 09:00:00'),
+(2, 22, '2025-10-17 10:15:00'),
+(3, 23, '2025-10-17 11:30:00'),
+(4, 24, '2025-10-17 14:45:00'),
+(5, 25, '2025-10-17 16:20:00'),
+(6, 27, NULL),
+(7, 29, NULL),
+(8, 30, NULL);
+
+-- Вставка данных в таблицу BasketItems
+INSERT INTO BasketItems (Id_BasketItems, Basket_Id, Products_Id, Count) VALUES
+(1, 1, 3, '1'),
+(2, 1, 4, '2'),
+(3, 2, 5, '1'),
+(4, 2, 6, '1'),
+(5, 3, 7, '1'),
+(6, 4, 8, '1'),
+(7, 4, 9, '1'),
+(8, 5, 10, '1'),
+(9, 5, 11, '1');
+
+-- Вставка данных в таблицу Orders
+INSERT INTO Orders (Id_Orders, Users_Id, Date_Zakaza, Sum_all, Status) VALUES
+(1, 21, '2025-10-16 12:30:00', '15 270', 'Выполнен'),
+(2, 22, '2025-10-16 14:45:00', '4 380', 'В обработке'),
+(3, 23, '2025-10-17 10:20:00', '3 990', 'Доставляется'),
+(4, 24, '2025-10-17 15:10:00', '47 480', 'Новый'),
+(5, 25, '2025-10-17 17:35:00', '27 780', 'В обработке'),
+(6, 27, '2025-10-19 11:25:00', '338950', 'status'),
+(7, 27, '2025-10-19 11:26:00', '27780', 'status'),
+(8, 29, '2025-10-19 11:27:00', '72760', 'status'),
+(9, 29, '2025-10-19 11:38:00', '124480', 'status'),
+(10, 29, '2025-10-19 11:44:00', '34490', 'status'),
+(11, 29, '2025-10-19 12:08:09.617', '89990', 'В пути'),
+(12, 30, '2025-10-19 12:27:00', '3870', 'В пути');
+
+-- Вставка данных в таблицу OrderItems
+INSERT INTO OrderItems (Id_OrderItems, Products_Id, Orders_Id, Count, PriceZaEd) VALUES
+(1, 3, 1, '1', '7 490'),
+(2, 4, 1, '2', '1 290'),
+(3, 5, 2, '1', '2 490'),
+(4, 6, 2, '1', '1 890'),
+(5, 7, 3, '1', '3 990'),
+(6, 8, 4, '1', '34 990'),
+(7, 9, 4, '1', '12 490'),
+(8, 10, 5, '1', '5 790'),
+(9, 11, 5, '1', '21 990'),
+(10, 2, 6, '2', '34 490 '),
+(11, 3, 6, '3', '89 990'),
+(12, 13, 7, '1', '21 990'),
+(13, 12, 7, '1', '5 790'),
+(14, 2, 8, '2', '34 490 '),
+(15, 16, 8, '2', '1 890'),
+(16, 2, 9, '1', '34 490 '),
+(17, 3, 9, '1', '89 990'),
+(18, 2, 10, '1', '34 490 '),
+(19, 3, 11, '1', '89 990'),
+(20, 6, 12, '3', '1 290');
+
+-- Установка последовательностей для автоинкремента
+SELECT setval('roles_id_roles_seq', (SELECT MAX(Id_Roles) FROM Roles));
+SELECT setval('users_id_users_seq', (SELECT MAX(Id_Users) FROM Users));
+SELECT setval('logins_id_logins_seq', (SELECT MAX(Id_Logins) FROM Logins));
+SELECT setval('categories_id_categories_seq', (SELECT MAX(Id_Categories) FROM Categories));
+SELECT setval('products_id_products_seq', (SELECT MAX(Id_Products) FROM Products));
+SELECT setval('basket_id_basket_seq', (SELECT MAX(Id_Basket) FROM Basket));
+SELECT setval('basketitems_id_basketitems_seq', (SELECT MAX(Id_BasketItems) FROM BasketItems));
+SELECT setval('orders_id_orders_seq', (SELECT MAX(Id_Orders) FROM Orders));
+SELECT setval('orderitems_id_orderitems_seq', (SELECT MAX(Id_OrderItems) FROM OrderItems));	
