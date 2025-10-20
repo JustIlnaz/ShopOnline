@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="400"
              x:Class="ShopOnline.Views.Customer.CustomerProfileUserControl">
-    <Grid RowDefinitions="Auto,*" Margin="20">
+    <Grid RowDefinitions="Auto,*" Margin="20" Background="wheat">
         <!-- Header -->
         <TextBlock Grid.Row="0" Text="Мой профиль" FontSize="20" FontWeight="Bold" 
                    HorizontalAlignment="Center" Margin="0,0,0,20"/>

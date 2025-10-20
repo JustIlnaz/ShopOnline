@@ -6,6 +6,7 @@
              x:Class="ShopOnline.Views.Customer.CustomerOrdersUserControl">
     <Grid Margin="10">
         <DataGrid Name="OrdersGrid"
+                  Background="wheat"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
                   SelectionMode="Single">

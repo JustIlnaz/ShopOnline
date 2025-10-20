@@ -15,7 +15,8 @@
                   SelectionMode="Single"
                   GridLinesVisibility="Horizontal"
                   CanUserReorderColumns="False"
-                  CanUserResizeColumns="True">
+                  CanUserResizeColumns="True"
+                  Background="wheat">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Название товара" Binding="{Binding BasketItem.Products.NameProducts}" 
                                    IsReadOnly="True" Width="200"/>

@@ -4,7 +4,7 @@
         Title="Tovar Management"
         Width="600"
         Height="450">
-    <StackPanel Margin="10">
+    <StackPanel Margin="10" Background="wheat" >
         <TextBlock Text="Name Product:" Margin="0,5"/>
         <TextBox Name="NameProductText" Margin="0,5"/>
         

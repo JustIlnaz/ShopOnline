@@ -5,7 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ShopOnline.AdminGoodsUserControl">
     <Grid RowDefinitions="Auto,*">
-        <StackPanel Orientation="Horizontal" Margin="10">
+        <StackPanel Orientation="Horizontal" Margin="10" Background="wheat">
             <Button Content="Add" 
                     Click="AddProduct"
                     Classes="accent"
@@ -19,7 +19,8 @@
                     Classes="accent"/>
         </StackPanel>
         
-        <DataGrid Name="ProductsDataGrid"
+        <DataGrid Name="ProductsDataGrid" 
+                  Background="wheat"
                   Grid.Row="1"
                   IsReadOnly="True"
                   AutoGenerateColumns="False"

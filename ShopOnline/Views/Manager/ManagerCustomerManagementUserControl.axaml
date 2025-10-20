@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ShopOnline.Views.Manager.ManagerCustomerManagementUserControl">
-    <DockPanel>
+    <DockPanel Background="wheat">
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,10">
             <TextBox Name="SearchBox" Width="200" Watermark="Search customer..." Margin="0,0,10,0"/>
             <Button Content="Search" Click="OnSearch"/>
